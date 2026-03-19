@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>AquaInnovate Jakarta — SOFTCOMPT 2026</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════
+   LIGHT THEME TOKENS
+   ════════════════════════════════════════ */
+:root{
+  --bg:          #F0F7F9;       /* Pale aqua-white canvas */
+  --bg-alt:      #FFFFFF;       /* Pure white panels */
+  --bg-hero:     #E4F4F7;       /* Hero tinted wash */
+  --surface:     rgba(255,255,255,0.75);
+  --surface-2:   rgba(255,255,255,0.9);
+  --border:      rgba(0,180,170,0.15);
+  --border-soft: rgba(0,0,0,0.07);
+
+  --teal:        #009B92;       /* Deeper teal for contrast on white */
+  --teal-light:  #00D4C8;       /* Bright teal for hero accents */
+  --teal-dim:    rgba(0,155,146,0.12);
+  --teal-mid:    rgba(0,155,146,0.22);
+  --cyan:        #0EA5E9;
+  --cyan-dim:    rgba(14,165,233,0.12);
+  --danger:      #E53935;
+  --danger-dim:  rgba(229,57,53,0.10);
+  --amber:       #F59E0B;
+  --amber-dim:   rgba(245,158,11,0.12);
+  --emerald:     #059669;
+  --emerald-dim: rgba(5,150,105,0.10);
+
+  --ink:         #0D2B35;       /* Near-black headline ink */
+  --ink-2:       #1E4A56;       /* Secondary heading */
+  --body:        #374957;       /* Body text */
+  --muted:       #6B8A96;       /* Labels / captions */
+  --faint:       #A8C4CC;       /* Placeholders */
+
+  --shadow-sm:   0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:   0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+  --shadow-lg:   0 10px 40px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-teal: 0 4px 24px rgba(0,155,146,0.20);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{background:var(--bg);}
+body{
+  font-family:'Outfit',sans-serif;
+  background:var(--bg);
+  color:var(--body);
+  overflow-x:hidden;
+}
+.mono{font-family:'Space Mono',monospace;}
+
+/* ── Paper texture grain ── */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  opacity:0.6;
+}
+
+/* ── Soft watercolour orbs ── */
+.orb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0;}
+.orb-1{width:700px;height:700px;background:radial-gradient(circle,rgba(0,212,200,0.10),transparent 65%);top:-200px;right:-150px;}
+.orb-2{width:500px;height:500px;background:radial-gradient(circle,rgba(14,165,233,0.08),transparent 65%);bottom:0;left:-150px;}
+.orb-3{width:400px;height:400px;background:radial-gradient(circle,rgba(0,155,146,0.07),transparent 65%);top:45%;left:35%;}
+
+/* ── GLASS (light) ── */
+.glass{
+  background:var(--surface);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid var(--border-soft);
+  border-radius:20px;
+  box-shadow:var(--shadow-sm);
+}
+.glass-card{
+  background:var(--surface-2);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border:1px solid var(--border-soft);
+  border-radius:24px;
+  box-shadow:var(--shadow-md);
+}
+
+/* ── NAVBAR ── */
+.nav-light{
+  background:rgba(240,247,249,0.85);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border-soft);
+  box-shadow:0 1px 0 rgba(0,155,146,0.08);
+}
+
+/* ── HERO ── */
+.hero-title{
+  font-size:clamp(2.8rem,8vw,6rem);
+  font-weight:900;line-height:0.95;letter-spacing:-0.03em;
+  color:var(--ink);
+}
+.hero-title .accent{
+  background:linear-gradient(135deg,var(--teal) 0%,var(--teal-light) 50%,var(--cyan) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+/* ── METRIC PILL ── */
+.metric-pill{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:999px;padding:0.55rem 1.3rem;
+  box-shadow:var(--shadow-sm);
+}
+.metric-pill .num{
+  font-size:1.5rem;font-weight:800;
+  background:linear-gradient(135deg,var(--teal),var(--cyan));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+/* ── BADGE ── */
+.badge{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  background:var(--teal-dim);
+  border:1px solid var(--teal-mid);
+  color:var(--teal);
+  font-size:0.7rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;
+  padding:0.35rem 0.9rem;border-radius:999px;
+}
+
+/* ── SECTION DIVIDER ── */
+.section-divider{
+  height:1px;
+  background:linear-gradient(to right,transparent,rgba(0,155,146,0.2),transparent);
+  margin:0 auto;max-width:60%;
+}
+
+/* ── TIMELINE (light) ── */
+.timeline-dot{
+  width:2.5rem;height:2.5rem;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;z-index:1;position:relative;
+}
+
+/* ── CALC SLIDER ── */
+input[type=range]{
+  -webkit-appearance:none;appearance:none;
+  height:5px;border-radius:9999px;outline:none;cursor:pointer;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:20px;height:20px;border-radius:50%;
+  background:white;border:3px solid var(--teal);
+  box-shadow:0 2px 8px rgba(0,155,146,0.35);cursor:pointer;
+  transition:transform 0.15s;
+}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15);}
+input[type=range]::-moz-range-thumb{
+  width:18px;height:18px;border-radius:50%;
+  background:white;border:3px solid var(--teal);cursor:pointer;
+}
+
+/* ── RESULT CARD (light) ── */
+.result-card{
+  background:white;
+  border:1px solid var(--border-soft);
+  border-radius:20px;padding:1.5rem 2rem;
+  position:relative;overflow:hidden;
+  box-shadow:var(--shadow-sm);
+  transition:border-color 0.3s,box-shadow 0.3s;
+}
+.result-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at top left,var(--teal-dim),transparent 60%);
+  pointer-events:none;
+}
+.result-card:hover{
+  border-color:var(--teal-mid);
+  box-shadow:var(--shadow-teal);
+}
+.result-num{
+  font-size:clamp(2rem,4vw,3.2rem);font-weight:900;
+  background:linear-gradient(135deg,var(--teal) 0%,var(--cyan) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+/* ── FLOW ARROWS ── */
+.flow-arrow-light{
+  display:flex;align-items:center;flex-shrink:0;padding:0 4px;
+}
+
+/* ── CONTACT FORM (light) ── */
+.form-input{
+  width:100%;background:white;
+  border:1.5px solid rgba(0,0,0,0.10);border-radius:12px;
+  padding:0.75rem 1rem;color:var(--ink);
+  font-family:'Outfit',sans-serif;font-size:0.9rem;
+  outline:none;transition:border-color 0.25s,box-shadow 0.25s;
+  box-shadow:inset 0 1px 2px rgba(0,0,0,0.04);
+}
+.form-input:focus{
+  border-color:var(--teal);
+  box-shadow:0 0 0 3px var(--teal-dim);
+}
+.form-input::placeholder{color:var(--faint);}
+
+/* ── SCAN LINE ── */
+.scan-wrap{position:relative;overflow:hidden;}
+.scan-wrap::after{
+  content:'';position:absolute;left:0;right:0;height:2px;
+  background:linear-gradient(to right,transparent,var(--teal),transparent);
+  animation:scanline 3s linear infinite;opacity:0.25;
+}
+@keyframes scanline{0%{top:-10%}100%{top:110%}}
+
+/* ── ANIMATIONS ── */
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+@keyframes spinSlow{to{transform:rotate(360deg)}}
+@keyframes pulseRing{0%,100%{opacity:1}50%{opacity:0.5}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:translateY(0)}}
+
+.float{animation:floatY 6s ease-in-out infinite;}
+.spin-slow{animation:spinSlow 22s linear infinite;}
+.pulse-ring{animation:pulseRing 2.5s ease-in-out infinite;}
+.fade-a{animation:fadeUp 0.9s ease both;}
+.fade-b{animation:fadeUp 0.9s 0.15s ease both;}
+.fade-c{animation:fadeUp 0.9s 0.3s ease both;}
+.fade-d{animation:fadeUp 0.9s 0.45s ease both;}
+
+/* ── SCROLL REVEAL ── */
+.sr{opacity:0;transform:translateY(32px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.sr.in{opacity:1;transform:none;}
+.sr-l{opacity:0;transform:translateX(-32px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.sr-l.in{opacity:1;transform:none;}
+.sr-r{opacity:0;transform:translateX(32px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.sr-r.in{opacity:1;transform:none;}
+
+/* ── MOBILE MENU ── */
+#mmenu{max-height:0;overflow:hidden;transition:max-height 0.35s ease;}
+#mmenu.open{max-height:400px;}
+
+/* ── HERO BG GRID ── */
+.hero-grid{
+  background-image:
+    linear-gradient(rgba(0,155,146,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,155,146,0.06) 1px, transparent 1px);
+  background-size:40px 40px;
+}
+
+.soil-pattern {
+            background-color: #78350F;
+            background-image:  linear-gradient(30deg, #451a03 12%, transparent 12.5%, transparent 87%, #451a03 87.5%, #451a03), linear-gradient(150deg, #451a03 12%, transparent 12.5%, transparent 87%, #451a03 87.5%, #451a03), linear-gradient(30deg, #451a03 12%, transparent 12.5%, transparent 87%, #451a03 87.5%, #451a03), linear-gradient(150deg, #451a03 12%, transparent 12.5%, transparent 87%, #451a03 87.5%, #451a03), linear-gradient(60deg, #451a03 25%, transparent 25.5%, transparent 75%, #451a03 75.5%, #451a03), linear-gradient(60deg, #451a03 25%, transparent 25.5%, transparent 75%, #451a03 75.5%, #451a03);
+            background-size: 20px 35px;
+        }
+
+        .water-layer {
+            background: linear-gradient(to bottom, #0EA5E9, #0369A1);
+            transition: height 0.8s ease;
+        }
+
+        #land-group { transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        
+        .house-icon { font-size: 24px; transition: all 0.5s; }
+
+/* ══ NEW SECTIONS ══════════════════════════════ */
+
+/* Economics table */
+.cost-table { width:100%; border-collapse:separate; border-spacing:0; }
+.cost-table th { font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:0.75rem 1.25rem; color:var(--muted); }
+.cost-table td { padding:1rem 1.25rem; font-size:0.9rem; vertical-align:top; border-top:1px solid rgba(0,0,0,0.05); }
+.cost-table tr:first-child td { border-top:none; }
+.cost-check { display:inline-flex; align-items:center; gap:0.4rem; }
+
+/* Map */
+#jakarta-map { position:relative; width:100%; max-width:560px; margin:0 auto; }
+#jakarta-map svg { width:100%; height:auto; display:block; }
+.map-zone { cursor:pointer; transition:opacity 0.2s; }
+.map-zone:hover { opacity:0.75; }
+.map-tooltip {
+  position:absolute; pointer-events:none;
+  background:white; border:1px solid rgba(0,0,0,0.09);
+  border-radius:14px; padding:1rem 1.2rem;
+  box-shadow:0 8px 32px rgba(0,0,0,0.12);
+  min-width:170px; z-index:50;
+  opacity:0; transform:translateY(6px);
+  transition:opacity 0.2s, transform 0.2s;
+}
+.map-tooltip.show { opacity:1; transform:translateY(0); }
+.risk-bar { height:5px; border-radius:3px; margin-top:6px; }
+
+/* Myth/Fact */
+.myth-card {
+  background:white; border:1px solid rgba(0,0,0,0.07);
+  border-radius:20px; overflow:hidden;
+  box-shadow:var(--shadow-sm);
+}
+.myth-header { padding:1rem 1.4rem; font-size:0.75rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; }
+.myth-body { padding:1.2rem 1.4rem; }
+
+/* Calculator fix */
+.calc-track { background:linear-gradient(to right, var(--teal) var(--pct,50%), rgba(0,155,146,0.15) var(--pct,50%)); }
+.calc-anim { transition: all 0.35s cubic-bezier(0.4,0,0.2,1); }
+</style>
+</head>
+<body>
+
+<!-- Watercolour orbs -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- ══════════════════ NAVBAR ══════════════════ -->
+<header class="fixed top-0 left-0 right-0 z-50 nav-light">
+  <nav class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between relative z-10">
+
+    <!-- Logo -->
+    <a href="#home" class="flex items-center gap-2.5 group">
+      <div class="relative w-9 h-9 flex items-center justify-center">
+        <div class="absolute inset-0 rounded-full pulse-ring" style="background:rgba(0,155,146,0.15)"></div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#009B92" stroke-width="2.5" stroke-linecap="round">
+          <path d="M12 2C6 8 4 12 4 16a8 8 0 0016 0c0-4-2-8-8-14z"/>
+        </svg>
+      </div>
+      <span class="font-bold text-lg" style="color:var(--ink)">Aqua<span style="color:var(--teal)">Innovate</span></span>
+    </a>
+
+    <!-- Desktop links -->
+    <ul class="hidden md:flex gap-8">
+      <li><a href="#home"    class="text-sm font-medium transition-colors hover:text-teal-600" style="color:var(--muted)">Home</a></li>
+      <li><a href="#about"   class="text-sm font-medium transition-colors hover:text-teal-600" style="color:var(--muted)">About</a></li>
+      <li><a href="#content" class="text-sm font-medium transition-colors hover:text-teal-600" style="color:var(--muted)">Content</a></li>
+      <li><a href="#economics" class="text-sm font-medium transition-colors hover:text-teal-600" style="color:var(--muted)">Economics</a></li>
+      <li><a href="#map"       class="text-sm font-medium transition-colors hover:text-teal-600" style="color:var(--muted)">City Map</a></li>
+      <li><a href="#contact"   class="text-sm font-medium transition-colors hover:text-teal-600" style="color:var(--muted)">Contact</a></li>
+    </ul>
+
+    <!-- CTA + burger -->
+    <div class="flex items-center gap-3">
+      <a href="#calculator"
+         class="hidden md:block text-sm font-semibold px-5 py-2 rounded-full transition-all hover:-translate-y-0.5"
+         style="background:var(--teal);color:white;box-shadow:var(--shadow-teal)">
+        Try Calculator
+      </a>
+      <button id="burger" class="md:hidden p-1" style="color:var(--ink)">
+        <svg id="ic-open"  width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        <svg id="ic-close" class="hidden" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M6 18L18 6"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mmenu" class="md:hidden px-6 pb-5" style="background:rgba(240,247,249,0.97);border-top:1px solid rgba(0,0,0,0.06)">
+    <ul class="flex flex-col gap-4 pt-3">
+      <li><a href="#home"       class="ml text-sm font-medium block py-1" style="color:var(--body)">Home</a></li>
+      <li><a href="#about"      class="ml text-sm font-medium block py-1" style="color:var(--body)">About</a></li>
+      <li><a href="#content"    class="ml text-sm font-medium block py-1" style="color:var(--body)">Content</a></li>
+      <li><a href="#contact"    class="ml text-sm font-medium block py-1" style="color:var(--body)">Contact</a></li>
+      <li><a href="#calculator" class="ml inline-block text-sm font-semibold px-5 py-2 rounded-full mt-1" style="background:var(--teal);color:white">Try Calculator</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- ══════════════════ HERO ══════════════════ -->
+<section id="home" class="relative min-h-screen flex flex-col justify-center pt-24 pb-16 z-10 hero-grid" style="background-color:var(--bg-hero)">
+
+  <!-- Decorative circle behind globe -->
+  <div class="absolute top-1/2 right-0 -translate-y-1/2 w-[600px] h-[600px] rounded-full -mr-64 opacity-40 pointer-events-none"
+       style="background:radial-gradient(circle,rgba(0,212,200,0.18),transparent 65%)"></div>
+
+  <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center relative z-10">
+
+    <!-- LEFT copy -->
+    <div>
+      <div class="badge mb-6 fade-a">
+        <span class="w-1.5 h-1.5 rounded-full bg-current"></span>
+        SOFTCOMPT 2026 · Environment
+      </div>
+
+      <h1 class="hero-title mb-4 fade-b">
+        Jakarta<br>is <span class="accent">Sinking.</span>
+      </h1>
+      <p class="text-lg mb-8 fade-c" style="color:var(--muted);max-width:28rem">
+        The fastest-sinking megacity on Earth needs a breakthrough — now.
+      </p>
+
+      <!-- 3 punchy bullets -->
+      <ul class="space-y-4 mb-10 fade-c">
+        <li class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+               style="background:var(--danger-dim);border:1px solid rgba(229,57,53,0.25)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E53935" stroke-width="2.5" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </div>
+          <span class="text-sm font-medium" style="color:var(--body)">Ground sinks <strong style="color:var(--ink)">up to 25 cm/year</strong> from aquifer extraction</span>
+        </li>
+        <li class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+               style="background:var(--amber-dim);border:1px solid rgba(245,158,11,0.25)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <span class="text-sm font-medium" style="color:var(--body)"><strong style="color:var(--ink)">40% of the city</strong> already sits below sea level</span>
+        </li>
+        <li class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+               style="background:var(--teal-dim);border:1px solid var(--teal-mid)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#009B92" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <span class="text-sm font-medium" style="color:var(--body)"><strong style="color:var(--ink)">8M+ residents</strong> face catastrophic flood risk by 2050</span>
+        </li>
+      </ul>
+
+      <div class="flex flex-wrap gap-3 fade-d">
+        <a href="#problem"
+           class="font-semibold px-7 py-3 rounded-full transition-all hover:-translate-y-0.5"
+           style="background:var(--teal);color:white;box-shadow:var(--shadow-teal)">
+          Explore Crisis
+        </a>
+        <a href="#solution"
+           class="font-semibold px-7 py-3 rounded-full transition-all hover:-translate-y-0.5"
+           style="background:white;color:var(--teal);border:1.5px solid var(--teal-mid);box-shadow:var(--shadow-sm)">
+          Our Solution →
+        </a>
+      </div>
+    </div>
+
+    <!-- RIGHT globe visual -->
+    <div class="flex justify-center float">
+      <div class="relative w-72 h-72 sm:w-80 sm:h-80">
+        <!-- Spinning dashed ring -->
+        <svg class="absolute inset-0 w-full h-full spin-slow" viewBox="0 0 320 320" fill="none">
+          <circle cx="160" cy="160" r="154" stroke="url(#rg)" stroke-width="1.5" stroke-dasharray="6 12" opacity="0.4"/>
+          <defs>
+            <linearGradient id="rg" x1="0" y1="0" x2="320" y2="320">
+              <stop offset="0%" stop-color="#009B92"/>
+              <stop offset="100%" stop-color="#0EA5E9" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <!-- Middle ring -->
+        <div class="absolute inset-4 rounded-full" style="border:1px solid rgba(0,155,146,0.15)"></div>
+        <!-- Globe core -->
+        <div class="absolute inset-10 rounded-full overflow-hidden flex items-end justify-center"
+             style="background:linear-gradient(160deg,#C8EEF0,#A5D8DC,#7EC5CC);box-shadow:0 12px 40px rgba(0,155,146,0.25),0 4px 12px rgba(0,155,146,0.15)">
+          <!-- City silhouette -->
+          <svg viewBox="0 0 200 100" class="absolute bottom-0 w-full" fill="#2A7A8A" opacity="0.35">
+            <rect x="5"   y="55" width="10" height="45"/>
+            <rect x="20"  y="38" width="14" height="62"/>
+            <rect x="40"  y="25" width="10" height="75"/>
+            <rect x="56"  y="42" width="12" height="58"/>
+            <rect x="74"  y="30" width="16" height="70"/>
+            <rect x="96"  y="20" width="10" height="80"/>
+            <rect x="112" y="35" width="14" height="65"/>
+            <rect x="132" y="45" width="12" height="55"/>
+            <rect x="150" y="28" width="16" height="72"/>
+            <rect x="172" y="50" width="10" height="50"/>
+            <rect x="186" y="60" width="8"  height="40"/>
+            <rect x="0"   y="80" width="200" height="20" opacity="0.3"/>
+          </svg>
+          <!-- Animated teal water -->
+          <svg class="absolute bottom-0 w-full" viewBox="0 0 200 36">
+            <path fill="#009B92" opacity="0.55"
+                  d="M0 18 Q25 6 50 18 Q75 30 100 18 Q125 6 150 18 Q175 30 200 18 L200 36 L0 36 Z">
+              <animate attributeName="d" dur="2.8s" repeatCount="indefinite"
+                values="M0 18 Q25 6 50 18 Q75 30 100 18 Q125 6 150 18 Q175 30 200 18 L200 36 L0 36 Z;
+                        M0 18 Q25 30 50 18 Q75 6 100 18 Q125 30 150 18 Q175 6 200 18 L200 36 L0 36 Z;
+                        M0 18 Q25 6 50 18 Q75 30 100 18 Q125 6 150 18 Q175 30 200 18 L200 36 L0 36 Z"/>
+            </path>
+          </svg>
+          <!-- Subsidence indicator -->
+          <div class="absolute top-4 left-1/2 -translate-x-1/2 flex flex-col items-center">
+            <span class="mono text-xs font-bold" style="color:#C0392B">−25cm</span>
+            <svg width="10" height="18" viewBox="0 0 10 18" fill="none">
+              <line x1="5" y1="0" x2="5" y2="14" stroke="#C0392B" stroke-width="1.5"/>
+              <path d="M1 10l4 7 4-7" stroke="#C0392B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <!-- Floating pills -->
+        <div class="absolute -top-2 -right-8 glass px-3 py-1.5 text-xs font-semibold whitespace-nowrap" style="color:var(--cyan);border-radius:12px;border-color:rgba(14,165,233,0.2)">🌊 Seawater Abundant</div>
+        <div class="absolute -bottom-2 -left-8 glass px-3 py-1.5 text-xs font-semibold whitespace-nowrap" style="color:var(--danger);border-radius:12px;border-color:rgba(229,57,53,0.2)">⚠️ Ground Collapsing</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stat strip -->
+  <div class="max-w-6xl mx-auto px-6 mt-16 w-full relative z-10">
+    <div class="glass-card px-6 py-5 grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="text-center"><div class="metric-pill inline-block"><span class="num">40%</span></div><p class="text-xs mt-2" style="color:var(--muted)">Below sea level</p></div>
+      <div class="text-center"><div class="metric-pill inline-block"><span class="num">25cm</span></div><p class="text-xs mt-2" style="color:var(--muted)">Annual subsidence</p></div>
+      <div class="text-center"><div class="metric-pill inline-block"><span class="num">8M+</span></div><p class="text-xs mt-2" style="color:var(--muted)">At-risk residents</p></div>
+      <div class="text-center"><div class="metric-pill inline-block"><span class="num">2050</span></div><p class="text-xs mt-2" style="color:var(--muted)">Critical threshold</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ ABOUT ══════════════════ -->
+<section id="about" class="relative z-10 py-32" style="background:var(--bg-alt)">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-14 sr">
+      <div class="badge mb-5">About the Project</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-4" style="color:var(--ink)">
+        What is <span style="color:var(--teal)">AquaInnovate?</span>
+      </h2>
+      <p class="max-w-xl mx-auto" style="color:var(--muted)">A SOFTCOMPT 2026 entry deploying marine desalination to end Jakarta's water crisis — and stop the city from sinking.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="glass-card p-8 hover:shadow-lg transition-shadow sr" style="transition-delay:0s">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6"
+             style="background:var(--teal-dim);border:1px solid var(--teal-mid)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#009B92" stroke-width="2" stroke-linecap="round"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        </div>
+        <h3 class="font-bold text-xl mb-2" style="color:var(--ink)">Impel Novelty</h3>
+        <p class="text-sm leading-relaxed" style="color:var(--muted)">First-of-its-kind coastal desalination micro-hubs replacing Jakarta's entire groundwater dependency.</p>
+      </div>
+      <div class="glass-card p-8 hover:shadow-lg transition-shadow sr" style="transition-delay:0.1s">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6"
+             style="background:var(--cyan-dim);border:1px solid rgba(14,165,233,0.2)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0EA5E9" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <h3 class="font-bold text-xl mb-2" style="color:var(--ink)">Navigate & Optimize</h3>
+        <p class="text-sm leading-relaxed" style="color:var(--muted)">Solar-tidal powered RO plants mapped to coastal zones — maximizing output with zero carbon footprint.</p>
+      </div>
+      <div class="glass-card p-8 hover:shadow-lg transition-shadow sr" style="transition-delay:0.2s">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6"
+             style="background:var(--emerald-dim);border:1px solid rgba(5,150,105,0.2)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3 class="font-bold text-xl mb-2" style="color:var(--ink)">Validate & Advance</h3>
+        <p class="text-sm leading-relaxed" style="color:var(--muted)">IoT soil sensors and BMKG data validate measurable subsidence reduction and aquifer recovery in real time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider z-10 relative"></div>
+
+<!-- ══════════════════ PROBLEM ══════════════════ -->
+<section id="content" class="relative z-10 py-32" style="background:var(--bg)">
+  <div class="max-w-6xl mx-auto px-6">
+    <div id="problem">
+      <div class="text-center mb-16 sr">
+        <div class="badge mb-5" style="background:var(--danger-dim);border-color:rgba(229,57,53,0.25);color:var(--danger)">Validate — Problem</div>
+        <h2 class="text-4xl md:text-5xl font-black mb-4" style="color:var(--ink)">
+          Timeline of <span style="color:var(--danger)">Destruction</span>
+        </h2>
+        <p class="max-w-md mx-auto" style="color:var(--muted)">How Jakarta built its own catastrophe — step by step.</p>
+      </div>
+
+      <!-- Timeline -->
+      <div class="relative max-w-2xl mx-auto">
+        <!-- Vertical line -->
+        <div class="absolute left-[1.75rem] top-4 bottom-4 w-0.5 rounded-full"
+             style="background:linear-gradient(to bottom,#E53935,#F59E0B,#009B92)"></div>
+
+        <!-- Step 1 -->
+        <div class="flex gap-6 mb-10 sr" style="transition-delay:0s">
+          <div class="timeline-dot" style="background:var(--danger-dim);border:2px solid #E53935;box-shadow:0 4px 16px rgba(229,57,53,0.2)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E53935" stroke-width="2.5" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+          </div>
+          <div class="glass-card p-6 flex-1">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold uppercase tracking-widest" style="color:#E53935">Step 1</span>
+              <span class="mono text-xs" style="color:var(--muted)">1970s → now</span>
+            </div>
+            <h4 class="font-bold text-lg mb-1" style="color:var(--ink)">Illegal Groundwater Pumping</h4>
+            <p class="text-sm" style="color:var(--muted)">65% of city water demand extracted from underground aquifers via 10M+ unregulated wells.</p>
+            <div class="mt-4 flex items-center gap-2">
+              <div class="h-1.5 rounded-full flex-1" style="background:rgba(229,57,53,0.1)">
+                <div class="h-full rounded-full" style="background:#E53935;width:65%"></div>
+              </div>
+              <span class="text-xs whitespace-nowrap" style="color:var(--muted)">65% dependency</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="flex gap-6 mb-10 sr" style="transition-delay:0.1s">
+          <div class="timeline-dot" style="background:var(--amber-dim);border:2px solid #F59E0B;box-shadow:0 4px 16px rgba(245,158,11,0.2)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"><rect x="2" y="14" width="20" height="8" rx="2"/><path d="M12 14v-4M8 10V6M16 10V6"/></svg>
+          </div>
+          <div class="glass-card p-6 flex-1">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold uppercase tracking-widest" style="color:#F59E0B">Step 2</span>
+              <span class="mono text-xs" style="color:var(--muted)">Irreversible</span>
+            </div>
+            <h4 class="font-bold text-lg mb-1" style="color:var(--ink)">Aquifer Collapse & Soil Compaction</h4>
+            <p class="text-sm" style="color:var(--muted)">Drained clay layers compact permanently. The earth itself is disappearing beneath Jakarta's feet.</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="flex gap-6 mb-10 sr" style="transition-delay:0.2s">
+          <div class="timeline-dot" style="background:rgba(251,146,60,0.12);border:2px solid #FB923C;box-shadow:0 4px 16px rgba(251,146,60,0.2)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FB923C" stroke-width="2.5" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+          </div>
+          <div class="glass-card p-6 flex-1">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold uppercase tracking-widest" style="color:#FB923C">Step 3</span>
+              <span class="mono text-xs font-bold" style="color:#FB923C">−25 cm/yr</span>
+            </div>
+            <h4 class="font-bold text-lg mb-1" style="color:var(--ink)">Land Subsidence — World's Fastest</h4>
+            <p class="text-sm" style="color:var(--muted)">North Jakarta sinks 25 cm per year. Some areas have dropped over 4 metres since the 1970s.</p>
+            <div class="mt-4 grid grid-cols-3 gap-2">
+              <div class="text-center glass rounded-xl py-2" style="background:rgba(251,146,60,0.06)"><div class="mono text-sm font-bold" style="color:#FB923C">−4m</div><div class="text-xs" style="color:var(--muted)">Total drop</div></div>
+              <div class="text-center glass rounded-xl py-2" style="background:rgba(251,146,60,0.06)"><div class="mono text-sm font-bold" style="color:#FB923C">#1</div><div class="text-xs" style="color:var(--muted)">Globally</div></div>
+              <div class="text-center glass rounded-xl py-2" style="background:rgba(251,146,60,0.06)"><div class="mono text-sm font-bold" style="color:#FB923C">25cm</div><div class="text-xs" style="color:var(--muted)">Per year</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="flex gap-6 sr" style="transition-delay:0.3s">
+          <div class="timeline-dot" style="background:var(--cyan-dim);border:2px solid #0EA5E9;box-shadow:0 4px 16px rgba(14,165,233,0.2)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0EA5E9" stroke-width="2.5" stroke-linecap="round"><path d="M12 2C6 8 4 12 4 16a8 8 0 0016 0c0-4-2-8-8-14z"/></svg>
+          </div>
+          <div class="glass-card p-6 flex-1" style="border-color:rgba(14,165,233,0.2)">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold uppercase tracking-widest" style="color:#0EA5E9">Step 4</span>
+              <span class="mono text-xs" style="color:var(--muted)">2050 forecast</span>
+            </div>
+            <h4 class="font-bold text-lg mb-1" style="color:var(--ink)">Catastrophic Tidal Flooding</h4>
+            <p class="text-sm" style="color:var(--muted)">95% of North Jakarta could be permanently submerged. 8 million residents displaced without intervention.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider z-10 relative"></div>
+
+<!-- ══════════════════ SOLUTION ══════════════════ -->
+<section id="solution" class="relative z-10 py-32" style="background:var(--bg-alt)">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-16 sr">
+      <div class="badge mb-5">Navigate — Solution</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-4" style="color:var(--ink)">
+        Seawater Into <span style="color:var(--teal)">Safety</span>
+      </h2>
+      <p class="max-w-lg mx-auto" style="color:var(--muted)">A 4-stage marine desalination pipeline — transforming Jakarta Bay into the city's primary water source.</p>
+    </div>
+
+    <!-- Flow diagram -->
+    <div class="flex flex-col md:flex-row items-stretch gap-0">
+
+      <!-- Step 1 -->
+      <div class="flex-1 sr" style="transition-delay:0s">
+        <div class="glass-card p-6 h-full flex flex-col items-center text-center relative overflow-hidden scan-wrap hover:shadow-lg transition-shadow">
+          <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(circle at top,rgba(14,165,233,0.05),transparent 60%)"></div>
+          <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-4 relative z-10"
+               style="background:var(--cyan-dim);border:1px solid rgba(14,165,233,0.25)">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M2 18 Q7 12 14 18 Q21 24 26 18" stroke="#0EA5E9" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M2 12 Q7 6 14 12 Q21 18 26 12" stroke="#0EA5E9" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+              <circle cx="14" cy="8" r="3" stroke="#0EA5E9" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="mono text-xs font-bold mb-1 relative z-10" style="color:#0EA5E9">01</div>
+          <h4 class="font-bold text-lg mb-2 relative z-10" style="color:var(--ink)">Seawater Intake</h4>
+          <p class="text-xs leading-relaxed relative z-10" style="color:var(--muted)">Submerged coastal pipes draw Jakarta Bay water through marine-safe screens</p>
+          <div class="mt-4 glass rounded-xl px-3 py-1.5 text-xs relative z-10" style="color:#0EA5E9;background:var(--cyan-dim)">Jakarta Bay</div>
+        </div>
+      </div>
+
+      <!-- Arrow -->
+      <div class="hidden md:flex items-center px-2 flex-shrink-0">
+        <svg width="36" height="20" viewBox="0 0 36 20" fill="none">
+          <path d="M0 10 L28 10" stroke="url(#a1)" stroke-width="2"/>
+          <path d="M24 5 L32 10 L24 15" stroke="url(#a1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs><linearGradient id="a1" x1="0" y1="0" x2="36" y2="0"><stop stop-color="#0EA5E9"/><stop offset="1" stop-color="#009B92"/></linearGradient></defs>
+        </svg>
+      </div>
+      <div class="md:hidden flex justify-center py-2">
+        <svg width="20" height="32" viewBox="0 0 20 32" fill="none"><path d="M10 0 L10 26" stroke="#009B92" stroke-width="2"/><path d="M4 22 L10 30 L16 22" stroke="#009B92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="flex-1 sr" style="transition-delay:0.1s">
+        <div class="glass-card p-6 h-full flex flex-col items-center text-center relative overflow-hidden hover:shadow-lg transition-shadow">
+          <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(circle at top,rgba(0,155,146,0.05),transparent 60%)"></div>
+          <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-4 relative z-10"
+               style="background:var(--teal-dim);border:1px solid var(--teal-mid)">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <rect x="4" y="4" width="20" height="20" rx="4" stroke="#009B92" stroke-width="2"/>
+              <path d="M8 10 h12 M8 14 h8 M8 18 h5" stroke="#009B92" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+            </svg>
+          </div>
+          <div class="mono text-xs font-bold mb-1 relative z-10" style="color:var(--teal)">02</div>
+          <h4 class="font-bold text-lg mb-2 relative z-10" style="color:var(--ink)">Pre-Treatment</h4>
+          <p class="text-xs leading-relaxed relative z-10" style="color:var(--muted)">Multi-stage filters strip sediment, organics & microplastics</p>
+          <div class="mt-4 flex gap-2 flex-wrap justify-center relative z-10">
+            <span class="glass rounded-full px-2 py-0.5 text-xs" style="color:var(--teal);background:var(--teal-dim)">Sediment</span>
+            <span class="glass rounded-full px-2 py-0.5 text-xs" style="color:var(--teal);background:var(--teal-dim)">Organics</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arrow -->
+      <div class="hidden md:flex items-center px-2 flex-shrink-0">
+        <svg width="36" height="20" viewBox="0 0 36 20" fill="none">
+          <path d="M0 10 L28 10" stroke="#009B92" stroke-width="2"/>
+          <path d="M24 5 L32 10 L24 15" stroke="#009B92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="md:hidden flex justify-center py-2">
+        <svg width="20" height="32" viewBox="0 0 20 32" fill="none"><path d="M10 0 L10 26" stroke="#009B92" stroke-width="2"/><path d="M4 22 L10 30 L16 22" stroke="#009B92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <!-- Step 3 — highlight -->
+      <div class="flex-1 sr" style="transition-delay:0.2s">
+        <div class="glass-card p-6 h-full flex flex-col items-center text-center relative overflow-hidden scan-wrap hover:shadow-lg transition-shadow"
+             style="border-color:var(--teal-mid);box-shadow:0 4px 24px rgba(0,155,146,0.14)">
+          <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(circle at top,rgba(0,155,146,0.08),transparent 60%)"></div>
+          <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-4 relative z-10"
+               style="background:var(--teal-dim);border:1.5px solid var(--teal);box-shadow:var(--shadow-teal)">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="14" r="9" stroke="#009B92" stroke-width="2"/>
+              <circle cx="14" cy="14" r="5" stroke="#009B92" stroke-width="1.5" opacity="0.45"/>
+              <path d="M14 5 v4 M14 19 v4 M5 14 h4 M19 14 h4" stroke="#009B92" stroke-width="1.5" stroke-linecap="round" opacity="0.45"/>
+            </svg>
+          </div>
+          <div class="mono text-xs font-bold mb-1 relative z-10" style="color:var(--teal)">03</div>
+          <h4 class="font-bold text-lg mb-2 relative z-10" style="color:var(--ink)">RO Desalination</h4>
+          <p class="text-xs leading-relaxed relative z-10" style="color:var(--muted)">High-pressure membranes reject 99.7% of salt ions — potable freshwater output</p>
+          <div class="mt-4 glass rounded-xl px-3 py-1.5 text-xs font-semibold relative z-10"
+               style="color:var(--teal);background:var(--teal-dim);border-color:var(--teal-mid)">99.7% Salt Removed</div>
+        </div>
+      </div>
+
+      <!-- Arrow -->
+      <div class="hidden md:flex items-center px-2 flex-shrink-0">
+        <svg width="36" height="20" viewBox="0 0 36 20" fill="none">
+          <path d="M0 10 L28 10" stroke="url(#a3)" stroke-width="2"/>
+          <path d="M24 5 L32 10 L24 15" stroke="url(#a3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs><linearGradient id="a3" x1="0" y1="0" x2="36" y2="0"><stop stop-color="#009B92"/><stop offset="1" stop-color="#0EA5E9"/></linearGradient></defs>
+        </svg>
+      </div>
+      <div class="md:hidden flex justify-center py-2">
+        <svg width="20" height="32" viewBox="0 0 20 32" fill="none"><path d="M10 0 L10 26" stroke="#009B92" stroke-width="2"/><path d="M4 22 L10 30 L16 22" stroke="#009B92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="flex-1 sr" style="transition-delay:0.3s">
+        <div class="glass-card p-6 h-full flex flex-col items-center text-center relative overflow-hidden hover:shadow-lg transition-shadow">
+          <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(circle at top,rgba(14,165,233,0.05),transparent 60%)"></div>
+          <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-4 relative z-10"
+               style="background:var(--cyan-dim);border:1px solid rgba(14,165,233,0.25)">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M4 22 L4 10 L14 4 L24 10 L24 22" stroke="#0EA5E9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="10" y="16" width="8" height="6" rx="1" stroke="#0EA5E9" stroke-width="2"/>
+              <path d="M14 16 v-5 M10 11 h8" stroke="#0EA5E9" stroke-width="1.5" stroke-linecap="round" opacity="0.55"/>
+            </svg>
+          </div>
+          <div class="mono text-xs font-bold mb-1 relative z-10" style="color:#0EA5E9">04</div>
+          <h4 class="font-bold text-lg mb-2 relative z-10" style="color:var(--ink)">City Distribution</h4>
+          <p class="text-xs leading-relaxed relative z-10" style="color:var(--muted)">Solar-powered pumping stations pipe clean water citywide — zero groundwater needed</p>
+          <div class="mt-4 glass rounded-xl px-3 py-1.5 text-xs relative z-10" style="color:#0EA5E9;background:var(--cyan-dim)">☀️ Solar Powered</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tech badges -->
+    <div class="mt-10 flex flex-wrap gap-3 justify-center sr">
+      <div class="glass-card px-5 py-3 flex items-center gap-3 hover:shadow-md transition-shadow">
+        <span class="text-xl">☀️</span>
+        <div><p class="font-semibold text-sm" style="color:var(--ink)">Solar-Tidal Hybrid</p><p class="text-xs" style="color:var(--muted)">Net-zero energy</p></div>
+      </div>
+      <div class="glass-card px-5 py-3 flex items-center gap-3 hover:shadow-md transition-shadow">
+        <span class="text-xl">📡</span>
+        <div><p class="font-semibold text-sm" style="color:var(--ink)">IoT Sensor Grid</p><p class="text-xs" style="color:var(--muted)">Real-time monitoring</p></div>
+      </div>
+      <div class="glass-card px-5 py-3 flex items-center gap-3 hover:shadow-md transition-shadow">
+        <span class="text-xl">♻️</span>
+        <div><p class="font-semibold text-sm" style="color:var(--ink)">Zero Brine Waste</p><p class="text-xs" style="color:var(--muted)">Salt industry recovery</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider z-10 relative"></div>
+
+<!-- ══════════════════ visualizer ══════════════════ -->
+<section class="max-w-4xl my-32 mx-auto bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200">
+    <div class="p-8 border-b border-slate-100">
+        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">
+            Kenapa Jakarta <span class="text-blue-600">Ambles?</span>
+        </h2>
+        <p class="text-slate-500 mt-2 text-sm">Geser slider untuk melihat kaitan antara sedot air tanah dan penurunan daratan.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3">
+        <div class="p-8 bg-slate-50 border-r border-slate-100">
+            <label class="text-xs font-bold uppercase tracking-widest text-slate-400">Pilih Tahun</label>
+            <input type="range" id="simSlider" min="0" max="3" value="0" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer mt-4 accent-blue-600">
+            
+            <div class="flex justify-between mt-8">
+                <div class="text-center">
+                    <p class="text-xs text-slate-400 font-bold">TAHUN</p>
+                    <p id="txtYear" class="text-4xl font-black text-slate-900">1970</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-xs text-slate-400 font-bold">PENURUNAN</p>
+                    <p id="txtDrop" class="text-4xl font-black text-blue-600">0<span class="text-lg">cm</span></p>
+                </div>
+            </div>
+
+            <div class="mt-8 p-4 bg-white rounded-xl border border-slate-200">
+                <p id="txtDesc" class="text-xs leading-relaxed text-slate-600">
+                    <strong>1970:</strong> Kondisi masih stabil. Air tanah masih melimpah di bawah bangunan kita.
+                </p>
+            </div>
+        </div>
+
+        <div class="md:col-span-2 relative h-[400px] bg-sky-50 overflow-hidden">
+            
+            <div class="absolute top-[100px] w-full border-t-2 border-dashed border-blue-400 z-30">
+                <span class="bg-blue-400 text-white text-[10px] px-2 py-0.5 rounded-br-lg font-bold">PERMUKAAN LAUT</span>
+            </div>
+
+            <div id="land-group" class="absolute w-full top-0 left-0">
+                
+                <div class="relative w-full h-[100px] flex items-end justify-center pb-1">
+                    <div class="house-icon mb-[-5px]">🏠🏢🏠</div>
+                    <div class="absolute bottom-0 w-full h-1 bg-green-500 shadow-lg"></div>
+                </div>
+
+                <div class="soil-pattern w-full h-[150px] relative border-t-2 border-yellow-900/20">
+                    <div id="aquifer" class="water-layer absolute bottom-0 w-full h-[80px] opacity-60 flex items-center justify-center">
+                        <span class="text-[10px] text-white font-bold tracking-widest uppercase">Akuifer (Air Tanah)</span>
+                    </div>
+                </div>
+
+                <div class="w-full h-[300px] bg-slate-800 p-4">
+                    <p class="text-[9px] text-slate-500 mono">LAPISAN BATUAN KERAS (STABIL)</p>
+                </div>
+            </div>
+
+            <div id="floodWarning" class="hidden absolute top-[102px] w-full h-full bg-blue-500/20 z-40 flex justify-center pt-10">
+                <div class="bg-red-600 text-white text-[10px] font-bold px-4 py-2 rounded-full h-fit animate-bounce shadow-xl">
+                    ⚠ AWAS: AIR LAUT MASUK KE DARATAN!
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════ CALCULATOR (FUNCTIONAL) ══════════════════ -->
+<section id="calculator" class="relative z-10 py-32" style="background:var(--bg)">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-14 sr">
+      <div class="badge mb-5" style="background:var(--teal-dim);border-color:var(--teal-mid);color:var(--teal)">Interactive Tool</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-4" style="color:var(--ink)">Water Impact <span style="color:var(--teal)">Calculator</span></h2>
+      <p class="max-w-md mx-auto" style="color:var(--muted)">See how switching to desalinated water reduces groundwater dependency and slows land subsidence.</p>
+    </div>
+
+    <div class="glass-card p-8 md:p-12 sr">
+      <!-- Slider -->
+      <div class="mb-10">
+        <div class="flex justify-between items-end mb-3">
+          <label class="font-semibold text-sm" style="color:var(--ink)">Households Switching to Desalinated Water</label>
+          <span class="mono font-bold text-lg" id="calc-hh-label" style="color:var(--teal)">500,000</span>
+        </div>
+        <div class="relative">
+          <input type="range" id="calc-slider" min="50000" max="2000000" step="50000" value="500000"
+            class="w-full calc-track"
+            style="--pct:23.7%">
+        </div>
+        <div class="flex justify-between mt-2">
+          <span class="text-xs" style="color:var(--muted)">50K households</span>
+          <span class="text-xs" style="color:var(--muted)">2M households</span>
+        </div>
+      </div>
+
+      <!-- Result cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="result-card">
+          <div class="relative z-10">
+            <div class="flex items-center gap-2 mb-3">
+              <div class="w-8 h-8 rounded-xl flex items-center justify-center" style="background:var(--teal-dim)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#009B92" stroke-width="2.5" stroke-linecap="round"><path d="M12 2C6 8 4 12 4 16a8 8 0 0016 0c0-4-2-8-8-14z"/></svg>
+              </div>
+              <span class="text-xs font-semibold uppercase tracking-wide" style="color:var(--muted)">Groundwater Saved</span>
+            </div>
+            <div class="result-num mono calc-anim" id="calc-gw">125M</div>
+            <p class="text-xs mt-1" style="color:var(--muted)">litres / day</p>
+          </div>
+        </div>
+        <div class="result-card">
+          <div class="relative z-10">
+            <div class="flex items-center gap-2 mb-3">
+              <div class="w-8 h-8 rounded-xl flex items-center justify-center" style="background:var(--emerald-dim)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+              </div>
+              <span class="text-xs font-semibold uppercase tracking-wide" style="color:var(--muted)">Subsidence Reduced</span>
+            </div>
+            <div class="result-num mono calc-anim" id="calc-sub" style="background:linear-gradient(135deg,#059669,#0EA5E9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">3.1cm</div>
+            <p class="text-xs mt-1" style="color:var(--muted)">reduction / year</p>
+          </div>
+        </div>
+        <div class="result-card">
+          <div class="relative z-10">
+            <div class="flex items-center gap-2 mb-3">
+              <div class="w-8 h-8 rounded-xl flex items-center justify-center" style="background:var(--cyan-dim)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0EA5E9" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <span class="text-xs font-semibold uppercase tracking-wide" style="color:var(--muted)">Years of Life Added</span>
+            </div>
+            <div class="result-num mono calc-anim" id="calc-years" style="background:linear-gradient(135deg,#0EA5E9,#009B92);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">+7yr</div>
+            <p class="text-xs mt-1" style="color:var(--muted)">to city infrastructure</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="mt-8">
+        <div class="flex justify-between text-xs mb-2" style="color:var(--muted)">
+          <span>Groundwater dependency reduction</span>
+          <span id="calc-pct-label" style="color:var(--teal);font-weight:600">25%</span>
+        </div>
+        <div class="h-2 rounded-full" style="background:var(--teal-dim)">
+          <div id="calc-bar" class="h-full rounded-full calc-anim" style="background:linear-gradient(to right,var(--teal),var(--cyan));width:25%"></div>
+        </div>
+        <p class="text-xs mt-2" style="color:var(--faint)">Based on avg 250L/household/day · 25cm annual subsidence baseline</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider z-10 relative"></div>
+
+<!-- ══════════════════ ECONOMICS ══════════════════ -->
+<section id="economics" class="relative z-10 py-32" style="background:var(--bg-alt)">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-14 sr">
+      <div class="badge mb-5" style="background:var(--amber-dim);border-color:rgba(245,158,11,0.25);color:var(--amber)">Economic Analysis</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-4" style="color:var(--ink)">The <span style="color:var(--amber)">Invisible Cost</span></h2>
+      <p class="max-w-md mx-auto" style="color:var(--muted)">Groundwater looks cheap — until you count what it destroys.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 sr">
+      <!-- Groundwater card -->
+      <div class="glass-card overflow-hidden">
+        <div class="px-6 py-4 flex items-center gap-3" style="background:var(--danger-dim);border-bottom:1px solid rgba(229,57,53,0.12)">
+          <div class="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(229,57,53,0.15)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E53935" stroke-width="2.5" stroke-linecap="round"><path d="M12 2C6 8 4 12 4 16a8 8 0 0016 0c0-4-2-8-8-14z"/><path d="M12 12 v4 M12 8 v.01" stroke-width="2"/></svg>
+          </div>
+          <div>
+            <p class="font-bold text-sm" style="color:#C62828">Groundwater Extraction</p>
+            <p class="text-xs" style="color:rgba(198,40,40,0.7)">The false economy</p>
+          </div>
+          <div class="ml-auto mono text-sm font-bold" style="color:#E53935">Rp 0 upfront</div>
+        </div>
+        <div class="p-6 space-y-4">
+          <div class="flex gap-3">
+            <svg class="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E53935" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            <div><p class="text-sm font-semibold" style="color:var(--ink)">Structural damage costs</p><p class="text-xs mt-0.5" style="color:var(--muted)">~Rp 40 trillion in annual building damage from subsidence-induced cracking</p></div>
+          </div>
+          <div class="flex gap-3">
+            <svg class="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E53935" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            <div><p class="text-sm font-semibold" style="color:var(--ink)">Flood infrastructure</p><p class="text-xs mt-0.5" style="color:var(--muted)">Giant Sea Wall (NCICD) costs $40B+ — a direct consequence of land loss</p></div>
+          </div>
+          <div class="flex gap-3">
+            <svg class="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E53935" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            <div><p class="text-sm font-semibold" style="color:var(--ink)">Population relocation</p><p class="text-xs mt-0.5" style="color:var(--muted)">8M displaced residents by 2050 — social cost incalculable</p></div>
+          </div>
+          <div class="mt-4 rounded-xl p-3 flex items-center justify-between" style="background:rgba(229,57,53,0.06);border:1px solid rgba(229,57,53,0.12)">
+            <span class="text-xs font-semibold" style="color:#C62828">True cost (30-yr projection)</span>
+            <span class="mono font-bold text-sm" style="color:#E53935">$200B+</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Desalination card -->
+      <div class="glass-card overflow-hidden" style="border-color:rgba(0,155,146,0.2)">
+        <div class="px-6 py-4 flex items-center gap-3" style="background:var(--teal-dim);border-bottom:1px solid var(--teal-mid)">
+          <div class="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(0,155,146,0.15)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#009B92" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <p class="font-bold text-sm" style="color:var(--ink)">Marine Desalination</p>
+            <p class="text-xs" style="color:var(--muted)">The real investment</p>
+          </div>
+          <div class="ml-auto mono text-sm font-bold" style="color:var(--teal)">~Rp 8,000/m³</div>
+        </div>
+        <div class="p-6 space-y-4">
+          <div class="flex gap-3">
+            <svg class="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <div><p class="text-sm font-semibold" style="color:var(--ink)">Protects land value</p><p class="text-xs mt-0.5" style="color:var(--muted)">Stops subsidence = preserves trillions in urban real estate value</p></div>
+          </div>
+          <div class="flex gap-3">
+            <svg class="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <div><p class="text-sm font-semibold" style="color:var(--ink)">Salt as revenue</p><p class="text-xs mt-0.5" style="color:var(--muted)">Brine byproduct converted to industrial salt — offsets 15–30% of plant operating costs</p></div>
+          </div>
+          <div class="flex gap-3">
+            <svg class="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <div><p class="text-sm font-semibold" style="color:var(--ink)">Infinite source</p><p class="text-xs mt-0.5" style="color:var(--muted)">Jakarta Bay contains ~650km² of seawater — completely inexhaustible supply</p></div>
+          </div>
+          <div class="mt-4 rounded-xl p-3 flex items-center justify-between" style="background:var(--teal-dim);border:1px solid var(--teal-mid)">
+            <span class="text-xs font-semibold" style="color:var(--ink)">Net savings vs groundwater (30yr)</span>
+            <span class="mono font-bold text-sm" style="color:var(--teal)">$150B+ saved</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hidden cost callout -->
+    <div class="mt-8 glass-card p-6 flex gap-5 items-start sr" style="border-left:3px solid var(--amber);border-radius:20px">
+      <div class="w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center" style="background:var(--amber-dim)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <div>
+        <p class="font-bold text-sm mb-1" style="color:var(--ink)">The paradox of "free" water</p>
+        <p class="text-sm leading-relaxed" style="color:var(--muted)">Every litre of "free" groundwater extracted today defers a bill that will arrive as a sunken road, a cracked building, or a flooded neighbourhood. Desalination isn't an expense — it's the premium you pay to keep the city above sea level.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider z-10 relative"></div>
+
+<!-- ══════════════════ CITY SHIELD MAP ══════════════════ -->
+<section id="map" class="relative z-10 py-32" style="background:var(--bg)">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-14 sr">
+      <div class="badge mb-5" style="background:var(--cyan-dim);border-color:rgba(14,165,233,0.2);color:var(--cyan)">Interactive Map</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-4" style="color:var(--ink)">City Shield <span style="color:var(--cyan)">Risk Map</span></h2>
+      <p class="max-w-md mx-auto" style="color:var(--muted)">Click any district to see subsidence rate, risk level, and priority action.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 items-start sr">
+      <!-- Map -->
+      <div class="md:col-span-2">
+        <div id="jakarta-map" class="glass-card p-4" style="position:relative">
+          <svg viewBox="0 0 520 360" xmlns="http://www.w3.org/2000/svg">
+            <!-- Sea background -->
+            <rect x="0" y="0" width="520" height="360" fill="#EAF4FF" rx="12"/>
+            <!-- Water strips (Jakarta Bay) -->
+            <rect x="0" y="0" width="520" height="70" fill="#C8E6FA" rx="4"/>
+            <text x="260" y="38" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#4A9EC4" opacity=".7">TELUK JAKARTA</text>
+
+            <!-- Districts as polygons -->
+            <!-- PENJARINGAN (extreme NW, critical) -->
+            <polygon id="z-penjaringan" class="map-zone" points="40,70 130,70 130,145 90,160 40,155"
+              fill="#FECDD3" stroke="#E53935" stroke-width="1.5" rx="4"
+              data-name="Penjaringan" data-rate="25" data-risk="critical" data-action="Priority Zone 1 — immediate desalination hub deployment"/>
+            <text x="82" y="115" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" font-weight="600" fill="#C62828" pointer-events="none">Penjaringan</text>
+            <text x="82" y="130" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#E53935" pointer-events="none">−25cm/yr</text>
+
+            <!-- PLUIT (north, critical) -->
+            <polygon id="z-pluit" class="map-zone" points="130,70 230,70 225,130 175,155 130,145"
+              fill="#FECDD3" stroke="#E53935" stroke-width="1.5"
+              data-name="Pluit" data-rate="23" data-risk="critical" data-action="Active monitoring + emergency pump ban required"/>
+            <text x="178" y="110" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" font-weight="600" fill="#C62828" pointer-events="none">Pluit</text>
+            <text x="178" y="126" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#E53935" pointer-events="none">−23cm/yr</text>
+
+            <!-- MUARA BARU (north-center, critical) -->
+            <polygon id="z-muarabaru" class="map-zone" points="230,70 330,70 326,125 275,148 225,130"
+              fill="#FED7AA" stroke="#F59E0B" stroke-width="1.5"
+              data-name="Muara Baru" data-rate="18" data-risk="high" data-action="Desalination micro-hub planned for 2027"/>
+            <text x="277" y="106" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" font-weight="600" fill="#92400E" pointer-events="none">Muara Baru</text>
+            <text x="277" y="122" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#F59E0B" pointer-events="none">−18cm/yr</text>
+
+            <!-- PADEMANGAN (north-east, high) -->
+            <polygon id="z-pademangan" class="map-zone" points="330,70 440,70 440,130 380,148 326,125"
+              fill="#FED7AA" stroke="#F59E0B" stroke-width="1.5"
+              data-name="Pademangan" data-rate="14" data-risk="high" data-action="IoT soil sensor grid installation Q1 2027"/>
+            <text x="385" y="106" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" font-weight="600" fill="#92400E" pointer-events="none">Pademangan</text>
+            <text x="385" y="122" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#F59E0B" pointer-events="none">−14cm/yr</text>
+
+            <!-- TANJUNG PRIOK (NE coast, high) -->
+            <polygon id="z-priok" class="map-zone" points="440,70 520,70 520,155 460,165 440,130"
+              fill="#FED7AA" stroke="#F59E0B" stroke-width="1.5"
+              data-name="Tanjung Priok" data-rate="12" data-risk="high" data-action="Port integration with desalination possible"/>
+            <text x="480" y="112" text-anchor="middle" font-family="Outfit,sans-serif" font-size="9.5" font-weight="600" fill="#92400E" pointer-events="none">Tg. Priok</text>
+            <text x="480" y="128" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#F59E0B" pointer-events="none">−12cm/yr</text>
+
+            <!-- CENTRAL (Gambir/Senen) mid-section, moderate -->
+            <polygon id="z-central" class="map-zone" points="90,160 225,130 275,148 270,230 150,245 90,225"
+              fill="#D1FAE5" stroke="#059669" stroke-width="1.5"
+              data-name="Central Jakarta" data-rate="6" data-risk="moderate" data-action="Monitoring only — natural buffer zone"/>
+            <text x="180" y="195" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" font-weight="600" fill="#065F46" pointer-events="none">Central Jakarta</text>
+            <text x="180" y="211" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#059669" pointer-events="none">−6cm/yr</text>
+
+            <!-- EAST (Matraman/Jatinegara) -->
+            <polygon id="z-east" class="map-zone" points="275,148 380,148 460,165 450,250 340,265 270,230"
+              fill="#D1FAE5" stroke="#059669" stroke-width="1.5"
+              data-name="East Jakarta" data-rate="8" data-risk="moderate" data-action="Secondary desalination pipeline feasibility study"/>
+            <text x="370" y="205" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" font-weight="600" fill="#065F46" pointer-events="none">East Jakarta</text>
+            <text x="370" y="221" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#059669" pointer-events="none">−8cm/yr</text>
+
+            <!-- SOUTH (Kebayoran/Mampang) -->
+            <polygon id="z-south" class="map-zone" points="40,155 90,155 90,225 150,245 130,310 50,310 40,260"
+              fill="#ECFDF5" stroke="#34D399" stroke-width="1.5"
+              data-name="South Jakarta" data-rate="3" data-risk="low" data-action="Low priority — stable elevation, standard water service"/>
+            <text x="92" y="260" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" font-weight="600" fill="#065F46" pointer-events="none">South Jakarta</text>
+            <text x="92" y="276" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#059669" pointer-events="none">−3cm/yr</text>
+
+            <!-- SE (Kramat Jati) -->
+            <polygon id="z-se" class="map-zone" points="150,245 340,265 450,250 460,310 300,330 150,325"
+              fill="#ECFDF5" stroke="#34D399" stroke-width="1.5"
+              data-name="SE Jakarta" data-rate="5" data-risk="low" data-action="Aquifer recharge programme underway"/>
+            <text x="305" y="296" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" font-weight="600" fill="#065F46" pointer-events="none">SE Jakarta</text>
+            <text x="305" y="312" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#059669" pointer-events="none">−5cm/yr</text>
+
+            <!-- Compass rose -->
+            <g transform="translate(476,300)">
+              <circle cx="0" cy="0" r="16" fill="white" fill-opacity=".8" stroke="rgba(0,155,146,0.2)" stroke-width="1"/>
+              <text x="0" y="-5" text-anchor="middle" font-family="Outfit,sans-serif" font-size="9" font-weight="700" fill="#374957">N</text>
+              <line x1="0" y1="2" x2="0" y2="10" stroke="#009B92" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="0" y1="-2" x2="0" y2="-10" stroke="#E53935" stroke-width="1.5" stroke-linecap="round"/>
+            </g>
+          </svg>
+
+          <!-- Tooltip -->
+          <div id="map-tooltip" class="map-tooltip">
+            <p class="font-bold text-sm mb-2" id="tt-name" style="color:var(--ink)">—</p>
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-xs" style="color:var(--muted)">Subsidence rate</span>
+              <span class="mono text-xs font-bold" id="tt-rate" style="color:var(--ink)">—</span>
+            </div>
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-xs" style="color:var(--muted)">Risk level</span>
+              <span class="text-xs font-bold px-2 py-0.5 rounded-full" id="tt-risk">—</span>
+            </div>
+            <div class="risk-bar" id="tt-bar"></div>
+            <p class="text-xs mt-3 leading-relaxed" id="tt-action" style="color:var(--muted)">—</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Legend + selected info -->
+      <div class="space-y-4">
+        <div class="glass-card p-5">
+          <p class="text-xs font-bold uppercase tracking-wider mb-4" style="color:var(--muted)">Risk Legend</p>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-4 h-4 rounded" style="background:#FECDD3;border:1.5px solid #E53935"></div>
+              <div><p class="text-sm font-semibold" style="color:var(--ink)">Critical</p><p class="text-xs" style="color:var(--muted)">&gt;20cm/yr subsidence</p></div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-4 h-4 rounded" style="background:#FED7AA;border:1.5px solid #F59E0B"></div>
+              <div><p class="text-sm font-semibold" style="color:var(--ink)">High</p><p class="text-xs" style="color:var(--muted)">10–20cm/yr</p></div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-4 h-4 rounded" style="background:#D1FAE5;border:1.5px solid #059669"></div>
+              <div><p class="text-sm font-semibold" style="color:var(--ink)">Moderate / Low</p><p class="text-xs" style="color:var(--muted)">&lt;10cm/yr</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card p-5" id="map-info-panel">
+          <p class="text-xs font-bold uppercase tracking-wider mb-3" style="color:var(--muted)">Selected District</p>
+          <p class="text-sm" id="info-placeholder" style="color:var(--faint)">Click a district on the map to view details.</p>
+          <div id="info-detail" class="hidden">
+            <p class="font-bold text-base mb-1" id="info-name" style="color:var(--ink)"></p>
+            <div class="flex items-baseline gap-1 mb-1">
+              <span class="mono text-2xl font-bold" id="info-rate" style="color:var(--danger)"></span>
+              <span class="text-xs" style="color:var(--muted)">cm/year</span>
+            </div>
+            <p class="text-xs font-semibold uppercase tracking-wide mb-2" id="info-risk"></p>
+            <p class="text-xs leading-relaxed" id="info-action" style="color:var(--muted)"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider z-10 relative"></div>
+
+<!-- ══════════════════ MYTHS vs FACTS ══════════════════ -->
+<section id="myths" class="relative z-10 py-32" style="background:var(--bg-alt)">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-14 sr">
+      <div class="badge mb-5" style="background:var(--emerald-dim);border-color:rgba(5,150,105,0.2);color:var(--emerald)">Science Check</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-4" style="color:var(--ink)">Desalination: <span style="color:var(--emerald)">Myths vs Facts</span></h2>
+      <p class="max-w-md mx-auto" style="color:var(--muted)">Addressing the most common objections — with evidence.</p>
+    </div>
+
+    <div class="space-y-5 sr">
+
+      <!-- Myth 1 -->
+      <div class="glass-card overflow-hidden">
+        <div class="grid md:grid-cols-2">
+          <div class="myth-card border-0 rounded-none border-r border-gray-100">
+            <div class="myth-header" style="background:rgba(229,57,53,0.06);color:#C62828">
+              <span style="margin-right:6px">✕</span> Myth
+            </div>
+            <div class="myth-body">
+              <p class="font-bold mb-1" style="color:var(--ink)">"Desalination destroys ocean ecosystems."</p>
+              <p class="text-sm leading-relaxed" style="color:var(--muted)">High-salinity brine discharge kills marine life near the intake point, making the process environmentally harmful.</p>
+            </div>
+          </div>
+          <div class="myth-card border-0 rounded-none">
+            <div class="myth-header" style="background:rgba(5,150,105,0.07);color:#065F46">
+              <span style="margin-right:6px">✓</span> Fact
+            </div>
+            <div class="myth-body">
+              <p class="font-bold mb-1" style="color:var(--ink)">Brine is a resource, not waste.</p>
+              <p class="text-sm leading-relaxed" style="color:var(--muted)">AquaInnovate routes brine to coastal evaporation ponds, producing industrial-grade NaCl and MgCl₂. Zero concentrated discharge into open water. Net marine impact: negligible.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Myth 2 -->
+      <div class="glass-card overflow-hidden">
+        <div class="grid md:grid-cols-2">
+          <div class="myth-card border-0 rounded-none border-r border-gray-100">
+            <div class="myth-header" style="background:rgba(229,57,53,0.06);color:#C62828">
+              <span style="margin-right:6px">✕</span> Myth
+            </div>
+            <div class="myth-body">
+              <p class="font-bold mb-1" style="color:var(--ink)">"It consumes too much energy to be viable."</p>
+              <p class="text-sm leading-relaxed" style="color:var(--muted)">Desalination plants are energy-hungry and rely on fossil fuels, making them unsustainable and expensive to operate long-term.</p>
+            </div>
+          </div>
+          <div class="myth-card border-0 rounded-none">
+            <div class="myth-header" style="background:rgba(5,150,105,0.07);color:#065F46">
+              <span style="margin-right:6px">✓</span> Fact
+            </div>
+            <div class="myth-body">
+              <p class="font-bold mb-1" style="color:var(--ink)">Solar-tidal hybrid achieves near-zero carbon.</p>
+              <p class="text-sm leading-relaxed" style="color:var(--muted)">Our design uses rooftop solar arrays + tidal micro-turbines in Jakarta Bay. Modern RO membranes require only 3–4 kWh/m³ — fully covered by renewable generation. Operating cost decreasing 8% annually.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Myth 3 -->
+      <div class="glass-card overflow-hidden">
+        <div class="grid md:grid-cols-2">
+          <div class="myth-card border-0 rounded-none border-r border-gray-100">
+            <div class="myth-header" style="background:rgba(229,57,53,0.06);color:#C62828">
+              <span style="margin-right:6px">✕</span> Myth
+            </div>
+            <div class="myth-body">
+              <p class="font-bold mb-1" style="color:var(--ink)">"Stopping groundwater won't fix the sinking."</p>
+              <p class="text-sm leading-relaxed" style="color:var(--muted)">The clay layers are already compacted — subsidence is irreversible and cannot be slowed even if pumping stops.</p>
+            </div>
+          </div>
+          <div class="myth-card border-0 rounded-none">
+            <div class="myth-header" style="background:rgba(5,150,105,0.07);color:#065F46">
+              <span style="margin-right:6px">✓</span> Fact
+            </div>
+            <div class="myth-body">
+              <p class="font-bold mb-1" style="color:var(--ink)">Aquifer recovery measurably slows subsidence.</p>
+              <p class="text-sm leading-relaxed" style="color:var(--muted)">Bangkok reduced subsidence from 10cm/yr to &lt;1cm/yr after halting groundwater extraction in the 1990s. Jakarta's own BMKG data shows correlation between extraction volume and subsidence rate is near-linear (R²=0.91).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider z-10 relative"></div>
+
+<!-- ══════════════════ CONTACT ══════════════════ -->
+<section id="contact" class="relative z-10 py-32" style="background:var(--bg-alt)">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="grid md:grid-cols-2 gap-14 items-start">
+
+      <!-- Info -->
+      <div class="sr-l">
+        <div class="badge mb-6">Contact</div>
+        <h2 class="text-4xl md:text-5xl font-black mb-5 leading-tight" style="color:var(--ink)">
+          Reach the<br><span style="color:var(--teal)">AquaInnovate</span><br>Team
+        </h2>
+        <p class="leading-relaxed mb-8" style="color:var(--muted)">
+          We're competing in SOFTCOMPT 2026. Reach out if you're a judge, mentor, or believe Jakarta's future can be saved.
+        </p>
+        <div class="space-y-3">
+          <div class="glass-card px-5 py-4 flex items-center gap-4">
+            <div class="w-9 h-9 rounded-xl flex-shrink-0 flex items-center justify-center"
+                 style="background:var(--teal-dim)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#009B92" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div><p class="text-xs" style="color:var(--muted)">Email</p><p class="text-sm font-medium" style="color:var(--ink)"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="88fcede9e5c8e9f9fde9e1e6e6e7fee9fceda6e1ec">[email&#160;protected]</a></p></div>
+          </div>
+          <div class="glass-card px-5 py-4 flex items-center gap-4">
+            <div class="w-9 h-9 rounded-xl flex-shrink-0 flex items-center justify-center"
+                 style="background:var(--teal-dim)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#009B92" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div><p class="text-xs" style="color:var(--muted)">Location</p><p class="text-sm font-medium" style="color:var(--ink)">Jakarta, Indonesia</p></div>
+          </div>
+          <div class="glass-card px-5 py-4 flex items-center gap-4">
+            <div class="w-9 h-9 rounded-xl flex-shrink-0 flex items-center justify-center"
+                 style="background:var(--teal-dim)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#009B92" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div><p class="text-xs" style="color:var(--muted)">Competition</p><p class="text-sm font-medium" style="color:var(--ink)">SOFTCOMPT 2026 · Environment</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="glass-card p-8 sr-r">
+        <h3 class="font-bold text-xl mb-6" style="color:var(--ink)">Send a Message</h3>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold mb-1.5" style="color:var(--muted)">Full Name</label>
+            <input type="text" placeholder="Your name" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold mb-1.5" style="color:var(--muted)">Email Address</label>
+            <input type="email" placeholder="you@example.com" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold mb-1.5" style="color:var(--muted)">Role</label>
+            <select class="form-input">
+              <option value="">Select role…</option>
+              <option>Competition Judge</option>
+              <option>Mentor / Advisor</option>
+              <option>Collaborator</option>
+              <option>Interested Citizen</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold mb-1.5" style="color:var(--muted)">Message</label>
+            <textarea rows="4" placeholder="Tell us what you think…" class="form-input resize-none"></textarea>
+          </div>
+          <button onclick="sendMsg()"
+                  class="w-full font-bold py-3 rounded-2xl transition-all hover:-translate-y-0.5"
+                  style="background:var(--teal);color:white;box-shadow:var(--shadow-teal)">
+            Send Message
+          </button>
+          <p id="sent-ok" class="hidden text-center text-sm font-semibold" style="color:var(--teal)">
+            ✓ Message sent! We'll be in touch.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer class="relative z-10 py-10" style="background:var(--bg-alt);border-top:1px solid var(--border-soft)">
+  <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-full flex items-center justify-center" style="background:var(--teal-dim)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#009B92" stroke-width="2.5" stroke-linecap="round"><path d="M12 2C6 8 4 12 4 16a8 8 0 0016 0c0-4-2-8-8-14z"/></svg>
+      </div>
+      <span class="font-bold" style="color:var(--ink)">AquaInnovate <span style="color:var(--teal)">Jakarta</span></span>
+    </div>
+    <p class="text-xs text-center" style="color:var(--muted)">SOFTCOMPT 2026 · INNOVATE · Sub-theme: Environment · Marine Filtration</p>
+    <p class="text-xs" style="color:var(--faint)">© 2026 AquaInnovate Team</p>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ── Burger ──
+const burger=document.getElementById('burger');
+const mmenu=document.getElementById('mmenu');
+const icO=document.getElementById('ic-open');
+const icC=document.getElementById('ic-close');
+burger.addEventListener('click',()=>{
+  mmenu.classList.toggle('open');
+  icO.classList.toggle('hidden');
+  icC.classList.toggle('hidden');
+});
+document.querySelectorAll('.ml').forEach(a=>{
+  a.addEventListener('click',()=>{
+    mmenu.classList.remove('open');
+    icO.classList.remove('hidden');
+    icC.classList.add('hidden');
+  });
+});
+
+// ── Scroll reveal ──
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});
+},{threshold:0.1});
+document.querySelectorAll('.sr,.sr-l,.sr-r').forEach(el=>obs.observe(el));
+
+// ── Simulation ──
+const simSlider = document.getElementById('simSlider');
+    const landGroup = document.getElementById('land-group');
+    const aquifer = document.getElementById('aquifer');
+    const txtYear = document.getElementById('txtYear');
+    const txtDrop = document.getElementById('txtDrop');
+    const txtDesc = document.getElementById('txtDesc');
+    const floodWarning = document.getElementById('floodWarning');
+
+    simSlider.addEventListener('input', (e) => {
+        const val = e.target.value;
+        if (val == 0) {
+            simUpdate(1970, 0, "80px", 0, "1970: Kondisi masih stabil. Air tanah masih melimpah di bawah bangunan kita.", false);
+        } else if (val == 1) {
+            simUpdate(2000, 180, "50px", 40, "2000: Mulai banyak sedot air tanah ilegal. Lapisan air (akuifer) menipis, tanah mulai turun.", false);
+        } else if (val == 2) {
+            simUpdate(2026, 400, "20px", 120, "2026: KRITIS! Air tanah hampir habis dikuras. Daratan Jakarta Utara kini sejajar dengan laut.", true);
+        } else if (val == 3) {
+            simUpdate(2050, 625, "5px", 180, "2050: BENCANA. Tanah ambles parah. Jakarta Utara tenggelam permanen oleh air laut.", true);
+        }
+    });
+
+    function simUpdate(year, drop, aqHeight, ty, desc, flood) {
+        txtYear.innerText = year;
+        txtDrop.innerHTML = `${drop}<span class="text-lg">cm</span>`;
+        txtDesc.innerHTML = `<strong>${year}:</strong> ${desc}`;
+        landGroup.style.transform = `translateY(${ty}px)`;
+        aquifer.style.height = aqHeight;
+        if (flood) { floodWarning.classList.remove('hidden'); }
+        else { floodWarning.classList.add('hidden'); }
+    }
+
+// ── Calculator (functional) ──
+(function(){
+  const sl = document.getElementById('calc-slider');
+  if(!sl) return;
+  const MAX_HH = 2000000;
+  const LITRES_PER_HH = 250; // L/day
+  const BASE_SUBSIDENCE = 25; // cm/yr max
+  const MAX_POSSIBLE_REDUCTION = 12; // cm/yr if all 2M switch
+
+  function fmtLitres(n) {
+    if(n >= 1e9) return (n/1e9).toFixed(2)+'B';
+    if(n >= 1e6) return (n/1e6).toFixed(1)+'M';
+    if(n >= 1e3) return (n/1e3).toFixed(0)+'K';
+    return n.toString();
+  }
+
+  function update() {
+    const hh = +sl.value;
+    const pct = (hh - 50000) / (MAX_HH - 50000);
+
+    // Slider fill
+    sl.style.setProperty('--pct', (pct*100).toFixed(1)+'%');
+
+    // Label
+    document.getElementById('calc-hh-label').textContent =
+      hh >= 1e6 ? (hh/1e6).toFixed(2)+'M' : (hh/1000).toFixed(0)+'K';
+
+    // Groundwater saved (L/day)
+    const gwSaved = hh * LITRES_PER_HH;
+    document.getElementById('calc-gw').textContent = fmtLitres(gwSaved);
+
+    // Subsidence reduced (linear scale, capped at max reduction)
+    const subReduction = (pct * MAX_POSSIBLE_REDUCTION).toFixed(1);
+    document.getElementById('calc-sub').textContent = subReduction + 'cm';
+
+    // Years of infrastructure life added (~1yr per 1cm reduction, max 20)
+    const yrs = Math.round(pct * 20);
+    document.getElementById('calc-years').textContent = '+' + yrs + 'yr';
+
+    // Dependency %: 1 household = 250L/day, Jakarta total demand ~2.6B L/day
+    const depPct = Math.min(Math.round((gwSaved / 2.6e9) * 100), 100);
+    document.getElementById('calc-pct-label').textContent = depPct + '%';
+    document.getElementById('calc-bar').style.width = depPct + '%';
+  }
+
+  sl.addEventListener('input', update);
+  update();
+})();
+
+// ── Map ──
+(function(){
+  const zones = document.querySelectorAll('.map-zone');
+  const tooltip = document.getElementById('map-tooltip');
+  const mapEl = document.getElementById('jakarta-map');
+  const riskColors = { critical:'#E53935', high:'#F59E0B', moderate:'#059669', low:'#34D399' };
+  const riskBg = { critical:'rgba(229,57,53,0.12)', high:'rgba(245,158,11,0.12)', moderate:'rgba(5,150,105,0.10)', low:'rgba(52,211,153,0.10)' };
+
+  zones.forEach(z => {
+    z.addEventListener('mouseenter', (e) => {
+      const d = z.dataset;
+      const risk = d.risk;
+      document.getElementById('tt-name').textContent = d.name;
+      document.getElementById('tt-rate').textContent = '−' + d.rate + ' cm/yr';
+      const riskEl = document.getElementById('tt-risk');
+      riskEl.textContent = risk.charAt(0).toUpperCase()+risk.slice(1);
+      riskEl.style.background = riskBg[risk] || '#eee';
+      riskEl.style.color = riskColors[risk] || '#333';
+      const barEl = document.getElementById('tt-bar');
+      barEl.style.background = riskColors[risk];
+      barEl.style.width = Math.min((+d.rate/25)*100, 100)+'%';
+      document.getElementById('tt-action').textContent = d.action;
+
+      // Position tooltip
+      const rect = mapEl.getBoundingClientRect();
+      const zRect = z.getBoundingClientRect();
+      const tipX = zRect.left - rect.left + zRect.width/2 - 90;
+      const tipY = zRect.top - rect.top + zRect.height + 6;
+      tooltip.style.left = Math.max(0, tipX)+'px';
+      tooltip.style.top = tipY+'px';
+      tooltip.classList.add('show');
+    });
+    z.addEventListener('mouseleave', () => {
+      tooltip.classList.remove('show');
+    });
+    z.addEventListener('click', () => {
+      const d = z.dataset;
+      const risk = d.risk;
+      document.getElementById('info-placeholder').classList.add('hidden');
+      document.getElementById('info-detail').classList.remove('hidden');
+      document.getElementById('info-name').textContent = d.name;
+      const rateEl = document.getElementById('info-rate');
+      rateEl.textContent = '−'+d.rate;
+      rateEl.style.color = riskColors[risk];
+      const riskLabel = document.getElementById('info-risk');
+      riskLabel.textContent = risk.toUpperCase();
+      riskLabel.style.color = riskColors[risk];
+      document.getElementById('info-action').textContent = d.action;
+    });
+  });
+})();
+function sendMsg(){document.getElementById("sent-ok").classList.remove("hidden");}
+</script>
+</body>
+</html>
