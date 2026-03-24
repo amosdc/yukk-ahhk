@@ -15,11 +15,12 @@ export const UIController = {
     UIView.initCursor();
     UIView.initNavbar();
     UIView.initNavActive();
-    UIView.initScrollReveal();
+    //UIView.initScrollReveal();
+    UIView.initGSAP();
     UIView.initGlobe();
     UIView.initAboutCards();
     UIView.initSolutionGlow();
-    UIView.initSolutionArrows();
+    //UIView.initSolutionArrows();
     UIView.initEconomicsTabs();
     UIView.initContactForm();
 

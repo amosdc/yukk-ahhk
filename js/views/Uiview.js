@@ -100,9 +100,9 @@ export const UIView = {
 
     window.addEventListener("scroll", () => {
       navbar.classList.toggle("scrolled", window.scrollY > 30);
-      const y = window.scrollY;
-      if (orb1) orb1.style.transform = `translateY(${y * 0.07}px)`;
-      if (orb2) orb2.style.transform = `translateY(${-y * 0.05}px)`;
+      //const y = window.scrollY;
+      //if (orb1) orb1.style.transform = `translateY(${y * 0.07}px)`;
+      //if (orb2) orb2.style.transform = `translateY(${-y * 0.05}px)`;
     });
 
     burger.addEventListener("click", () => {
@@ -279,5 +279,245 @@ export const UIView = {
   sendMessage() {
     const ok = document.getElementById("sent-ok");
     if (ok) ok.classList.remove("hidden");
+  },
+
+  /* ── GSAP Animations ── */
+  initGSAP() {
+    if (typeof gsap === "undefined") return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    // ==========================================
+    // A. Hero Section Sequence (Muncul Berurutan)
+    // ==========================================
+    const heroTl = gsap.timeline({ delay: 2.2 });
+
+    gsap.set(
+      ".hero-badge, .hero-title-wrap, .hero-sub, .hero-bullets, .hero-cta, .hero-stats",
+      { opacity: 0, y: 30 },
+    );
+    gsap.set(".hero-globe-wrap", { opacity: 0, scale: 0.8 });
+
+    heroTl
+      .to(".hero-badge", {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out",
+      })
+      .to(
+        ".hero-title-wrap",
+        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+        "-=0.6",
+      )
+      .to(
+        ".hero-sub",
+        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+        "-=0.6",
+      )
+      .to(
+        ".hero-bullets",
+        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+        "-=0.6",
+      )
+      .to(
+        ".hero-cta",
+        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+        "-=0.6",
+      )
+      .to(
+        ".hero-globe-wrap",
+        { opacity: 1, scale: 1, duration: 1.2, ease: "elastic.out(1, 0.7)" },
+        "-=1.2",
+      )
+      .to(
+        ".hero-stats",
+        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+        "-=0.8",
+      );
+
+    // ==========================================
+    // B. ScrollTrigger pada "Linimasa Kerusakan"
+    // ==========================================
+    // 1. Jalur garis vertikal memanjang perlahan sesuai scroll
+    gsap.fromTo(
+      ".timeline-track",
+      { height: "0%" },
+      {
+        height: "100%",
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#content",
+          start: "top center",
+          end: "bottom center",
+          scrub: true,
+        },
+      },
+    );
+
+    // 2. Card item muncul dari kiri/kanan bergantian
+    gsap.utils.toArray(".tl-item").forEach((item, i) => {
+      item.classList.remove("sr");
+
+      gsap.fromTo(
+        item,
+        { opacity: 0, x: i % 2 === 0 ? -40 : 40 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 85%",
+          },
+        },
+      );
+    });
+
+    // ==========================================
+    // C. Number Counter (Angka Berjalan)
+    // ==========================================
+    const stats = document.querySelectorAll(".hero-stats .num");
+    stats.forEach((stat) => {
+      let text = stat.innerText;
+
+      let targetVal = parseFloat(text.replace(/[^0-9.]/g, ""));
+
+      let counter = { val: 0 };
+
+      if (targetVal > 2000) counter.val = 1900;
+
+      gsap.to(counter, {
+        val: targetVal,
+        duration: 2.5,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ".hero-stats",
+          start: "top 95%",
+        },
+        onUpdate: function () {
+          stat.innerText = text.replace(/[0-9.]+/, Math.round(counter.val));
+        },
+      });
+    });
+
+    // ==========================================
+    // D. Parallax Background (Orb)
+    // ==========================================
+    gsap.to(".orb-1", {
+      y: 200,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#home",
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+      },
+    });
+    gsap.to(".orb-2", {
+      y: -150,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#home",
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+      },
+    });
+    // ==========================================
+    // E. General Scroll Reveal
+    // ==========================================
+    const revealElements = document.querySelectorAll(
+      ".sr, .sr-l, .sr-r, .sr-scale",
+    );
+
+    revealElements.forEach((el) => {
+      let xOffset = 0;
+      let yOffset = 40;
+      let scaleVal = 1;
+
+      if (el.classList.contains("sr-l")) {
+        xOffset = -40;
+        yOffset = 0;
+      } else if (el.classList.contains("sr-r")) {
+        xOffset = 40;
+        yOffset = 0;
+      } else if (el.classList.contains("sr-scale")) {
+        scaleVal = 0.9;
+        yOffset = 0;
+      }
+
+      el.style.transition = "none";
+
+      gsap.fromTo(
+        el,
+        { opacity: 0, x: xOffset, y: yOffset, scale: scaleVal },
+        {
+          opacity: 1,
+          x: 0,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+            // toggleActions: "play none none reverse"
+          },
+        },
+      );
+    });
+    // ==========================================
+    // F. Animasi "Draw SVG" Alur Solusi
+    // ==========================================
+    const flowSection = document.getElementById("solution-flow");
+    if (flowSection) {
+      gsap.set(".sol-arrow line, .sol-arrow path", {
+        strokeDasharray: 36,
+        strokeDashoffset: 36,
+      });
+
+      gsap.to(".sol-arrow line, .sol-arrow path", {
+        strokeDashoffset: 0,
+        duration: 1.2,
+        ease: "power2.out",
+        stagger: 1.0,
+        scrollTrigger: {
+          trigger: flowSection,
+          start: "top 75%",
+        },
+      });
+    }
+
+    // ==========================================
+    // G. Magnetic Button Effect (Efek Magnet)
+    // ==========================================
+    const magneticButtons = document.querySelectorAll(
+      ".btn-primary, .btn-secondary",
+    );
+
+    magneticButtons.forEach((btn) => {
+      btn.addEventListener("mousemove", (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = (e.clientX - rect.left - rect.width / 2) * 0.3;
+        const y = (e.clientY - rect.top - rect.height / 2) * 0.3;
+
+        gsap.to(btn, {
+          x: x,
+          y: y,
+          duration: 0.4,
+          ease: "power2.out",
+        });
+      });
+
+      btn.addEventListener("mouseleave", () => {
+        gsap.to(btn, {
+          x: 0,
+          y: 0,
+          duration: 0.7,
+          ease: "elastic.out(1, 0.3)",
+        });
+      });
+    });
   },
 };
