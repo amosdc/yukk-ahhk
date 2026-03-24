@@ -1,32 +1,46 @@
 /**
  * CONTROLLER — MapController
- * Menghubungkan MapModel ↔ MapView untuk peta risiko.
+ * Menghubungkan MapModel ↔ MapView dengan integrasi Leaflet.js
  */
 import { MapModel } from "../models/MapModel.js";
 import { MapView } from "../views/Mapview.js";
 
 export const MapController = {
   init() {
-    const zones = document.querySelectorAll(".map-zone");
-    if (!zones.length) return;
+    // Fungsi callback untuk menangani interaksi di setiap poligon (zona)
+    const handleInteractions = (feature, layer) => {
+      const data = feature.properties;
 
-    zones.forEach((zone) => {
-      zone.addEventListener("mouseenter", () => {
-        const barWidth = MapModel.getRiskBarWidth(+zone.dataset.rate);
-        MapView.showTooltip(
-          zone.dataset,
-          zone.getBoundingClientRect(),
-          MapModel.riskColors,
-          MapModel.riskBg,
-          barWidth,
-        );
+      layer.on({
+        mousemove: (e) => {
+          layer.setStyle({ fillOpacity: 0.8 });
+          const barWidth = MapModel.getRiskBarWidth(data.rate);
+          MapView.showTooltip(
+            e,
+            data,
+            MapModel.riskColors,
+            MapModel.riskBg,
+            barWidth,
+          );
+        },
+        mouseout: (e) => {
+          MapView.geoJsonLayer.resetStyle(e.target);
+          MapView.hideTooltip();
+        },
+        click: (e) => {
+          MapView.showInfoPanel(data, MapModel.riskColors);
+          MapView.map.fitBounds(e.target.getBounds(), { padding: "" });
+        },
       });
+    };
 
-      zone.addEventListener("mouseleave", () => MapView.hideTooltip());
-
-      zone.addEventListener("click", () => {
-        MapView.showInfoPanel(zone.dataset, MapModel.riskColors);
-      });
-    });
+    // Inisialisasi peta dengan data GeoJSON dan event handlers
+    if (document.getElementById("mapbox-container")) {
+      MapView.initMap(
+        MapModel.geoJSON,
+        MapModel.riskColors,
+        handleInteractions,
+      );
+    }
   },
 };
