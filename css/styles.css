@@ -58,9 +58,6 @@ body {
 .mono {
   font-family: "Space Mono", monospace;
 }
-.syne {
-  font-family: "Syne", sans-serif;
-}
 
 /* ═══════════════════════════════════════
    LOADING SCREEN
@@ -357,6 +354,7 @@ body::before {
    TYPOGRAPHY
    ═══════════════════════════════════════ */
 .hero-title {
+  font-family: "Outfit", sans-serif;
   font-size: clamp(2.8rem, 8vw, 6rem);
   font-weight: 900;
   line-height: 0.95;
