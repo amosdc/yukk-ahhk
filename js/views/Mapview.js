@@ -22,14 +22,22 @@ export const MapView = {
   geoJsonLayer: null,
 
   initMap(geoData, riskColors, interactionCallbacks) {
+    const jakartaBounds = L.latLngBounds(
+      L.latLng(-6.35, 106.7),
+      L.latLng(-6.05, 106.98),
+    );
+
     this.map = L.map("mapbox-container", {
       center: [-6.15, 106.8229],
       zoom: 11,
+      minZoom: 12,
+      maxBounds: jakartaBounds,
+      maxBoundsViscosity: 1.0,
       scrollWheelZoom: false,
     });
 
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
+      maxZoom: 25,
       attribution: "© OpenStreetMap",
     }).addTo(this.map);
 
