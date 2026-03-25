@@ -658,274 +658,436 @@
 
     <div class="section-divider z-10 relative"></div>
 
-    <!-- ══════════════════════════════════════
-     TIMELINE
+<!-- ══════════════════════════════════════
+     TIMELINE 
      ══════════════════════════════════════ -->
-    <section
-      id="content"
-      class="relative z-10 py-28"
-      style="background: var(--bg)"
-    >
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-14 sr">
-          <div
-            class="badge mb-5"
-            style="
-              background: var(--danger-dim);
-              border-color: rgba(229, 57, 53, 0.22);
-              color: var(--danger);
-            "
-          >
-            Validasi — Masalah
-          </div>
-          <h2 class="section-title text-3xl md:text-4xl mb-4">
-            Linimasa <span style="color: var(--danger)">Kerusakan</span>
-          </h2>
-          <p class="sub-headline max-w-md mx-auto text-sm">
-            Bagaimana Jakarta membangun bencananya sendiri — selangkah demi
-            selangkah.
-          </p>
-        </div>
-        <div class="relative max-w-2xl mx-auto">
-          <div class="timeline-track"></div>
 
-          <div
-            class="flex gap-5 mb-8 sr tl-item"
-            style="transition-delay: 0s; --accent-color: #e53935"
-          >
-            <div
-              class="tl-dot flex-shrink-0"
-              style="
-                background: var(--danger-dim);
-                border: 2.5px solid #e53935;
-                box-shadow: 0 4px 20px rgba(229, 57, 53, 0.22);
-              "
-            >
-              <svg
-                width="13"
-                height="13"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#E53935"
-                stroke-width="2.5"
-                stroke-linecap="round"
-              >
-                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-              </svg>
-            </div>
-            <div class="tl-card p-5 flex-1">
-              <div class="flex items-center justify-between mb-2.5">
-                <span class="kicker" style="color: #e53935">Step 1</span>
-                <span class="data-label">1970s → sekarang</span>
-              </div>
-              <h4 class="font-bold text-base mb-2" style="color: var(--ink)">
-                Ketergantungan Ekstraksi Air Tanah
-              </h4>
-              <p class="text-sm leading-relaxed" style="color: var(--muted)">
-                BPS mencatat persentase rumah tangga yang memiliki akses layanan
-                air minum layak di Jakarta. Faktanya, karena jangkauan PAM belum
-                merata, ini masih didominasi oleh penggunaan sumur bor.
-                Eksploitasi akuifer oleh jutaan rumah tangga dan industri
-                menjadi pemicu awal krisis.
-              </p>
-              <div class="mt-4 flex items-center gap-3">
-                <div
-                  class="flex-1 h-1.5 rounded-full"
-                  style="background: rgba(229, 57, 53, 0.1)"
-                >
-                  <div
-                    class="prog-bar"
-                    style="
-                      width: 65%;
-                      background: linear-gradient(to right, #e53935, #f59e0b);
-                    "
-                  ></div>
-                </div>
-                <span class="data-label">65% sumur bor</span>
-              </div>
-            </div>
-          </div>
+<style>
+  /* Blobs */
+  .tl-blob {
+    position:absolute; width:220px; height:220px; border-radius:50%;
+    filter:blur(70px); opacity:0.18; pointer-events:none;
+    top:40%; left:50%; transform:translate(-50%,-50%);
+    background:#e53935;
+    transition:background 0.6s ease;
+    animation:blobFloat 6s ease-in-out infinite;
+  }
+  .tl-blob2 {
+    position:absolute; width:120px; height:120px; border-radius:50%;
+    filter:blur(50px); opacity:0.1; pointer-events:none;
+    top:70%; left:70%;
+    background:#e53935;
+    transition:background 0.6s ease;
+    animation:blobFloat 8s ease-in-out infinite reverse;
+  }
+  @keyframes blobFloat {
+    0%,100% { transform:translate(-50%,-50%) scale(1); }
+    50%      { transform:translate(-50%,-58%) scale(1.1); }
+  }
 
-          <div
-            class="flex gap-5 mb-8 sr tl-item"
-            style="transition-delay: 0.12s; --accent-color: #f59e0b"
-          >
-            <div
-              class="tl-dot flex-shrink-0"
-              style="
-                background: var(--amber-dim);
-                border: 2.5px solid #f59e0b;
-                box-shadow: 0 4px 20px rgba(245, 158, 11, 0.22);
-              "
-            >
-              <svg
-                width="13"
-                height="13"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#F59E0B"
-                stroke-width="2.5"
-                stroke-linecap="round"
-              >
-                <rect x="2" y="14" width="20" height="8" rx="2" />
-                <path d="M12 14v-4M8 10V6M16 10V6" />
-              </svg>
-            </div>
-            <div class="tl-card p-5 flex-1">
-              <div class="flex items-center justify-between mb-2.5">
-                <span class="kicker" style="color: #f59e0b">Step 2</span>
-                <span class="data-label">Dampak Langsung</span>
-              </div>
-              <h4 class="font-bold text-base mb-2" style="color: var(--ink)">
-                Kompaksi Akuifer & Penurunan Tanah
-              </h4>
-              <p class="text-sm leading-relaxed" style="color: var(--muted)">
-                Lapisan tanah bawah Jakarta perlahan hancur karena air yang
-                menopangnya terus disedot. Menurut DSDA, Jakarta mengalami
-                penurunan permukaan tanah rata-rata
-                <strong style="color: var(--ink)"
-                  >3,9 cm sepanjang 2023.</strong
-                >
-              </p>
-            </div>
-          </div>
+  /* Particles */
+  .tl-particles { position:absolute; inset:0; pointer-events:none; overflow:hidden; border-radius:1.5rem; }
+  .tl-particle {
+    position:absolute; left:var(--x); top:var(--y);
+    width:5px; height:5px; border-radius:50%;
+    opacity:0.3;
+    animation:particlePulse 3s ease-in-out var(--d) infinite;
+  }
+  @keyframes particlePulse {
+    0%,100% { transform:scale(1); opacity:0.2; }
+    50%      { transform:scale(2.8); opacity:0.55; }
+  }
 
-          <div
-            class="flex gap-5 mb-8 sr tl-item"
-            style="transition-delay: 0.24s; --accent-color: #fb923c"
-          >
-            <div
-              class="tl-dot flex-shrink-0"
-              style="
-                background: rgba(251, 146, 60, 0.12);
-                border: 2.5px solid #fb923c;
-                box-shadow: 0 4px 20px rgba(251, 146, 60, 0.22);
-              "
-            >
-              <svg
-                width="13"
-                height="13"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#FB923C"
-                stroke-width="2.5"
-                stroke-linecap="round"
-              >
-                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
-              </svg>
-            </div>
-            <div class="tl-card p-5 flex-1">
-              <div class="flex items-center justify-between mb-2.5">
-                <span class="kicker" style="color: #fb923c">Step 3</span>
-                <span class="mono text-xs font-bold" style="color: #fb923c"
-                  >−5,76 cm/tahun</span
-                >
-              </div>
-              <h4 class="font-bold text-base mb-2" style="color: var(--ink)">
-                Laju Subsiden Tercepat di Dunia
-              </h4>
-              <p class="text-sm leading-relaxed" style="color: var(--muted)">
-                Temuan terbaru dari Badan Geologi mengungkap laju amblesnya
-                tanah mencapai
-                <strong style="color: var(--ink)">5,76 cm per tahun</strong> —
-                menjadikan Jakarta megapolitan dengan laju tenggelam tercepat di
-                bumi.
-              </p>
-              <div class="mt-4 grid grid-cols-3 gap-2">
-                <div
-                  class="text-center glass rounded-xl py-2"
-                  style="background: rgba(251, 146, 60, 0.06)"
-                >
-                  <div class="mono text-sm font-bold" style="color: #fb923c">
-                    −4m
-                  </div>
-                  <div
-                    class="data-label"
-                    style="font-size: 0.6rem; margin-top: 2px"
-                  >
-                    Total
-                  </div>
-                </div>
-                <div
-                  class="text-center glass rounded-xl py-2"
-                  style="background: rgba(251, 146, 60, 0.06)"
-                >
-                  <div class="mono text-sm font-bold" style="color: #fb923c">
-                    #1
-                  </div>
-                  <div
-                    class="data-label"
-                    style="font-size: 0.6rem; margin-top: 2px"
-                  >
-                    Global
-                  </div>
-                </div>
-                <div
-                  class="text-center glass rounded-xl py-2"
-                  style="background: rgba(251, 146, 60, 0.06)"
-                >
-                  <div class="mono text-sm font-bold" style="color: #fb923c">
-                    5cm
-                  </div>
-                  <div
-                    class="data-label"
-                    style="font-size: 0.6rem; margin-top: 2px"
-                  >
-                    Per Tahun
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+  /* Ring pulse */
+  .tl-ring-pulse {
+    position:absolute; inset:-14px; border-radius:1.5rem;
+    border:2px solid currentColor; opacity:0;
+    animation:ringPulse 2.2s ease-out infinite;
+  }
+  @keyframes ringPulse {
+    0%   { transform:scale(0.85); opacity:0.6; }
+    100% { transform:scale(1.15); opacity:0; }
+  }
 
-          <div
-            class="flex gap-5 sr tl-item"
-            style="transition-delay: 0.36s; --accent-color: #0ea5e9"
-          >
-            <div
-              class="tl-dot flex-shrink-0"
-              style="
-                background: var(--cyan-dim);
-                border: 2.5px solid #0ea5e9;
-                box-shadow: 0 4px 20px rgba(14, 165, 233, 0.22);
-              "
-            >
-              <svg
-                width="13"
-                height="13"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#0EA5E9"
-                stroke-width="2.5"
-                stroke-linecap="round"
-              >
-                <path d="M12 2C6 8 4 12 4 16a8 8 0 0016 0c0-4-2-8-8-14z" />
-              </svg>
+  /* Spinning border glow */
+  .tl-border-glow {
+    position:absolute; inset:0; border-radius:1.5rem;
+    background:conic-gradient(from 0deg, #e53935, #f59e0b, #fb923c, #e53935);
+    opacity:0.4;
+    animation:spinBorder 5s linear infinite;
+    z-index:0;
+  }
+  @keyframes spinBorder {
+    from { transform:rotate(0deg); }
+    to   { transform:rotate(360deg); }
+  }
+
+  /* Icon pop */
+  @keyframes iconPop {
+    0%   { transform:scale(0.5) rotate(-12deg); opacity:0; }
+    65%  { transform:scale(1.18) rotate(5deg);  opacity:1; }
+    100% { transform:scale(1)    rotate(0deg);  opacity:1; }
+  }
+  .tl-icon-pop { animation:iconPop 0.45s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+
+  /* Stat slide */
+  @keyframes statSlide {
+    from { opacity:0; transform:translateY(12px) scale(0.94); }
+    to   { opacity:1; transform:translateY(0)    scale(1); }
+  }
+  .tl-stat-in { animation:statSlide 0.4s ease 0.1s both; }
+
+  /* Text fade */
+  @keyframes textFade {
+    from { opacity:0; transform:translateY(7px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  .tl-text-in { animation:textFade 0.35s ease both; }
+
+  /* Card glow */
+  .tl-card { transition:all 0.3s ease; }
+  .tl-card.tl-active {
+    box-shadow:0 0 0 2px var(--tl-glow), 0 6px 36px var(--tl-glow);
+    transform:translateY(-2px);
+  }
+  .tl-card:hover:not(.tl-active) {
+    transform:translateY(-1px);
+    box-shadow:0 4px 18px rgba(0,0,0,0.07);
+  }
+  .tl-card.tl-active .tl-card-icon { transform:scale(1.14); }
+  .tl-card-icon { transition:transform 0.3s ease; }
+
+  /* Num button active */
+  .tl-num-btn { transition:all 0.3s ease; }
+  .tl-num-btn.tl-num-active {
+    transform:scale(1.25);
+    box-shadow:0 0 0 3px #fff, 0 0 0 5px currentColor;
+  }
+
+  /* Progress fill */
+  .tl-prog-fill { transition:width 0.5s cubic-bezier(0.4,0,0.2,1); }
+</style>
+
+<section id="content" class="relative z-10 py-28" style="background:var(--bg)">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <!-- Header -->
+    <div class="text-center mb-14 sr">
+      <div class="badge mb-5" style="background:var(--danger-dim);border-color:rgba(229,57,53,0.22);color:var(--danger);">
+        Validasi — Masalah
+      </div>
+      <h2 class="section-title text-3xl md:text-4xl mb-4">
+        Linimasa <span style="color:var(--danger)">Kerusakan</span>
+      </h2>
+      <p class="sub-headline max-w-md mx-auto text-sm">
+        Bagaimana Jakarta membangun bencananya sendiri — selangkah demi selangkah.
+      </p>
+    </div>
+
+    <!-- Progress Bar Strip -->
+    <div class="flex items-center gap-1 max-w-2xl mx-auto mb-4 px-1">
+      <div class="flex-1 h-1.5 rounded-full overflow-hidden cursor-pointer" style="background:rgba(0,0,0,0.06)" onclick="selectStep(0)">
+        <div class="tl-prog-fill h-full rounded-full" style="width:100%;background:#e53935" id="prog-0"></div>
+      </div>
+      <div class="flex-1 h-1.5 rounded-full overflow-hidden cursor-pointer" style="background:rgba(0,0,0,0.06)" onclick="selectStep(1)">
+        <div class="tl-prog-fill h-full rounded-full" style="width:0%;background:#f59e0b" id="prog-1"></div>
+      </div>
+      <div class="flex-1 h-1.5 rounded-full overflow-hidden cursor-pointer" style="background:rgba(0,0,0,0.06)" onclick="selectStep(2)">
+        <div class="tl-prog-fill h-full rounded-full" style="width:0%;background:#fb923c" id="prog-2"></div>
+      </div>
+      <div class="flex-1 h-1.5 rounded-full overflow-hidden cursor-pointer" style="background:rgba(0,0,0,0.06)" onclick="selectStep(3)">
+        <div class="tl-prog-fill h-full rounded-full" style="width:0%;background:#0ea5e9" id="prog-3"></div>
+      </div>
+    </div>
+
+    <!-- Step Number Indicators -->
+    <div class="flex justify-between max-w-2xl mx-auto mb-14 px-1">
+      <button class="tl-num-btn tl-num-active text-xs font-bold w-7 h-7 rounded-full" onclick="selectStep(0)" id="num-0" style="background:rgba(229,57,53,0.12);color:#e53935;">1</button>
+      <button class="tl-num-btn text-xs font-bold w-7 h-7 rounded-full" onclick="selectStep(1)" id="num-1" style="background:rgba(0,0,0,0.04);color:#b0b0b0;">2</button>
+      <button class="tl-num-btn text-xs font-bold w-7 h-7 rounded-full" onclick="selectStep(2)" id="num-2" style="background:rgba(0,0,0,0.04);color:#b0b0b0;">3</button>
+      <button class="tl-num-btn text-xs font-bold w-7 h-7 rounded-full" onclick="selectStep(3)" id="num-3" style="background:rgba(0,0,0,0.04);color:#b0b0b0;">4</button>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="grid md:grid-cols-2 gap-10 items-start">
+
+      <!-- LEFT: Sticky Visual Card -->
+      <div class="hidden md:block sticky top-28">
+        <div class="relative rounded-3xl p-0.5 overflow-hidden" id="tl-visual-wrap" style="box-shadow:0 0 40px rgba(229,57,53,0.25)">
+          <!-- Spinning border -->
+          <div class="tl-border-glow" id="tl-border-glow"></div>
+          <!-- Inner card -->
+          <div class="relative rounded-3xl flex flex-col items-center justify-center text-center px-10 py-12 overflow-hidden" style="background:var(--surface,#f8fafc);min-height:24rem;">
+            <div class="tl-blob" id="tl-blob"></div>
+            <div class="tl-blob2" id="tl-blob2"></div>
+            <div class="tl-particles">
+              <span class="tl-particle" style="--d:0s;--x:20%;--y:15%;background:#e53935"></span>
+              <span class="tl-particle" style="--d:0.4s;--x:75%;--y:25%;background:#e53935"></span>
+              <span class="tl-particle" style="--d:0.8s;--x:60%;--y:75%;background:#e53935"></span>
+              <span class="tl-particle" style="--d:1.2s;--x:25%;--y:70%;background:#e53935"></span>
             </div>
-            <div
-              class="tl-card p-5 flex-1"
-              style="border-color: rgba(14, 165, 233, 0.18)"
-            >
-              <div class="flex items-center justify-between mb-2.5">
-                <span class="kicker" style="color: #0ea5e9">Step 4</span>
-                <span class="data-label">Proyeksi 2050</span>
+
+            <!-- Icon -->
+            <div class="relative z-10 mb-1">
+              <div class="tl-ring-pulse" id="tl-ring" style="color:#e53935"></div>
+              <div class="flex items-center justify-center w-24 h-24 rounded-2xl mx-auto transition-all duration-500" id="tl-icon-bg" style="background:rgba(229,57,53,0.1);">
+                <span class="text-5xl" id="tl-icon">🚰</span>
               </div>
-              <h4 class="font-bold text-base mb-2" style="color: var(--ink)">
-                Bencana Banjir Rob
-              </h4>
-              <p class="text-sm leading-relaxed" style="color: var(--muted)">
-                Proyeksi terburuk: sebagian besar wilayah Jakarta Utara akan
-                terendam air laut secara
-                <strong style="color: var(--ink)">permanen pada 2050</strong>,
-                memicu kerusakan infrastruktur raksasa dan eksodus jutaan warga.
-              </p>
+            </div>
+
+            <!-- Badge -->
+            <div class="relative z-10 mt-5 mb-3">
+              <span class="text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full" id="tl-badge"
+                style="background:rgba(229,57,53,0.1);color:#e53935;">
+                Step 1 · 1970s → Sekarang
+              </span>
+            </div>
+
+            <!-- Title -->
+            <h3 class="relative z-10 text-xl font-black mb-2" style="color:var(--ink)" id="tl-title">
+              Ekstraksi Air Tanah
+            </h3>
+
+            <!-- Desc -->
+            <p class="relative z-10 text-sm leading-relaxed mb-6" style="color:var(--muted)" id="tl-desc">
+              Ketergantungan awal pada sumur bor oleh jutaan rumah tangga.
+            </p>
+
+            <!-- Stat -->
+            <div class="relative z-10 w-full rounded-2xl px-6 py-4 text-center transition-all duration-500" id="tl-stat"
+              style="background:rgba(229,57,53,0.07);border:1.5px solid rgba(229,57,53,0.15);">
+              <div class="text-4xl font-black leading-none mb-1" style="color:#e53935;font-family:monospace" id="tl-stat-num">65%</div>
+              <div class="text-xs font-medium" style="color:var(--muted)" id="tl-stat-label">rumah tangga pakai sumur bor</div>
             </div>
           </div>
         </div>
       </div>
-    </section>
 
-    <div class="section-divider z-10 relative"></div>
+      <!-- RIGHT: Step Cards -->
+      <div class="space-y-3">
+
+        <!-- Step 1 -->
+        <div class="tl-card tl-active cursor-pointer rounded-2xl p-6 select-none"
+          onclick="selectStep(0)"
+          style="--tl-glow:rgba(229,57,53,0.25);border:1.5px solid rgba(229,57,53,0.15);background:rgba(229,57,53,0.04);">
+          <div class="flex items-start gap-4">
+            <div class="tl-card-icon flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-xl" style="background:rgba(229,57,53,0.1);">🚰</div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1.5">
+                <span class="text-xs font-bold uppercase tracking-widest" style="color:#e53935">Step 1</span>
+                <span class="text-xs" style="color:var(--muted)">1970s → sekarang</span>
+              </div>
+              <h4 class="font-black text-sm mb-1" style="color:var(--ink)">Ketergantungan Ekstraksi Air Tanah</h4>
+              <p class="text-xs leading-relaxed" style="color:var(--muted)">Eksploitasi akuifer oleh jutaan rumah tangga dan industri menjadi pemicu awal krisis.</p>
+              <div class="mt-3 flex items-center gap-2">
+                <div class="flex-1 h-1 rounded-full" style="background:rgba(229,57,53,0.1)">
+                  <div class="h-full rounded-full" style="width:65%;background:linear-gradient(to right,#e53935,#f59e0b)"></div>
+                </div>
+                <span class="text-xs flex-shrink-0" style="color:var(--muted)">65%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="tl-card cursor-pointer rounded-2xl p-6 select-none"
+          onclick="selectStep(1)"
+          style="--tl-glow:rgba(245,158,11,0.25);border:1.5px solid rgba(245,158,11,0.12);background:rgba(245,158,11,0.02);">
+          <div class="flex items-start gap-4">
+            <div class="tl-card-icon flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-xl" style="background:rgba(245,158,11,0.1);">📉</div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1.5">
+                <span class="text-xs font-bold uppercase tracking-widest" style="color:#f59e0b">Step 2</span>
+                <span class="text-xs" style="color:var(--muted)">Dampak Langsung</span>
+              </div>
+              <h4 class="font-black text-sm mb-1" style="color:var(--ink)">Kompaksi Akuifer & Penurunan Tanah</h4>
+              <p class="text-xs leading-relaxed" style="color:var(--muted)">Lapisan tanah bawah Jakarta hancur. Rata-rata ambles <strong style="color:var(--ink)">3,9 cm</strong> sepanjang 2023.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="tl-card cursor-pointer rounded-2xl p-6 select-none"
+          onclick="selectStep(2)"
+          style="--tl-glow:rgba(251,146,60,0.25);border:1.5px solid rgba(251,146,60,0.12);background:rgba(251,146,60,0.02);">
+          <div class="flex items-start gap-4">
+            <div class="tl-card-icon flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-xl" style="background:rgba(251,146,60,0.1);">🚨</div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1.5">
+                <span class="text-xs font-bold uppercase tracking-widest" style="color:#fb923c">Step 3</span>
+                <span class="text-xs font-bold" style="color:#fb923c;font-family:monospace">−5,76 cm/tahun</span>
+              </div>
+              <h4 class="font-black text-sm mb-1" style="color:var(--ink)">Laju Subsiden Tercepat di Dunia</h4>
+              <p class="text-xs leading-relaxed" style="color:var(--muted)">Jakarta megapolitan dengan laju tenggelam <strong style="color:var(--ink)">tercepat di bumi.</strong></p>
+              <div class="mt-3 grid grid-cols-3 gap-1.5">
+                <div class="text-center rounded-lg py-1.5" style="background:rgba(251,146,60,0.08)">
+                  <div class="text-xs font-bold" style="color:#fb923c;font-family:monospace">−4m</div>
+                  <div class="text-xs" style="font-size:0.55rem;color:var(--muted)">Total</div>
+                </div>
+                <div class="text-center rounded-lg py-1.5" style="background:rgba(251,146,60,0.08)">
+                  <div class="text-xs font-bold" style="color:#fb923c;font-family:monospace">#1</div>
+                  <div class="text-xs" style="font-size:0.55rem;color:var(--muted)">Global</div>
+                </div>
+                <div class="text-center rounded-lg py-1.5" style="background:rgba(251,146,60,0.08)">
+                  <div class="text-xs font-bold" style="color:#fb923c;font-family:monospace">5cm</div>
+                  <div class="text-xs" style="font-size:0.55rem;color:var(--muted)">Per Tahun</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="tl-card cursor-pointer rounded-2xl p-6 select-none"
+          onclick="selectStep(3)"
+          style="--tl-glow:rgba(14,165,233,0.25);border:1.5px solid rgba(14,165,233,0.12);background:rgba(14,165,233,0.02);">
+          <div class="flex items-start gap-4">
+            <div class="tl-card-icon flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-xl" style="background:rgba(14,165,233,0.1);">🌊</div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1.5">
+                <span class="text-xs font-bold uppercase tracking-widest" style="color:#0ea5e9">Step 4</span>
+                <span class="text-xs" style="color:var(--muted)">Proyeksi 2050</span>
+              </div>
+              <h4 class="font-black text-sm mb-1" style="color:var(--ink)">Bencana Banjir Rob</h4>
+              <p class="text-xs leading-relaxed" style="color:var(--muted)">Jakarta Utara diproyeksikan terendam <strong style="color:var(--ink)">permanen pada 2050</strong> tanpa intervensi radikal.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider z-10 relative"></div>
+
+<script>
+const tlSteps = [
+  {
+    icon:"🚰", badge:"Step 1 · 1970s → Sekarang",
+    title:"Ekstraksi Air Tanah",
+    desc:"Ketergantungan awal pada sumur bor oleh jutaan rumah tangga dan industri.",
+    statNum:"65%", statLabel:"rumah tangga pakai sumur bor",
+    color:"#e53935", bgColor:"rgba(229,57,53,0.07)", borderColor:"rgba(229,57,53,0.15)",
+    blobColor:"#e53935", glowColor:"rgba(229,57,53,0.25)",
+    badgeBg:"rgba(229,57,53,0.1)", iconBg:"rgba(229,57,53,0.12)",
+    particleColor:"#e53935"
+  },
+  {
+    icon:"📉", badge:"Step 2 · Dampak Langsung",
+    title:"Kompaksi Akuifer",
+    desc:"Lapisan tanah Jakarta hancur permanen karena air yang menopangnya terus disedot.",
+    statNum:"3,9cm", statLabel:"penurunan tanah sepanjang 2023",
+    color:"#f59e0b", bgColor:"rgba(245,158,11,0.07)", borderColor:"rgba(245,158,11,0.18)",
+    blobColor:"#f59e0b", glowColor:"rgba(245,158,11,0.25)",
+    badgeBg:"rgba(245,158,11,0.1)", iconBg:"rgba(245,158,11,0.12)",
+    particleColor:"#f59e0b"
+  },
+  {
+    icon:"🚨", badge:"Step 3 · Rekor Dunia",
+    title:"Laju Subsiden Tercepat",
+    desc:"Jakarta resmi menjadi megapolitan dengan laju tenggelam tercepat di dunia.",
+    statNum:"−5,76cm", statLabel:"ambles per tahun · #1 global",
+    color:"#fb923c", bgColor:"rgba(251,146,60,0.07)", borderColor:"rgba(251,146,60,0.18)",
+    blobColor:"#fb923c", glowColor:"rgba(251,146,60,0.25)",
+    badgeBg:"rgba(251,146,60,0.1)", iconBg:"rgba(251,146,60,0.12)",
+    particleColor:"#fb923c"
+  },
+  {
+    icon:"🌊", badge:"Step 4 · Proyeksi 2050",
+    title:"Bencana Banjir Rob",
+    desc:"Sebagian besar Jakarta Utara diproyeksikan terendam permanen tanpa intervensi.",
+    statNum:"2050", statLabel:"tahun bencana permanen Jakarta Utara",
+    color:"#0ea5e9", bgColor:"rgba(14,165,233,0.07)", borderColor:"rgba(14,165,233,0.18)",
+    blobColor:"#0ea5e9", glowColor:"rgba(14,165,233,0.25)",
+    badgeBg:"rgba(14,165,233,0.1)", iconBg:"rgba(14,165,233,0.12)",
+    particleColor:"#0ea5e9"
+  }
+];
+
+let tlCurrent = 0;
+
+function selectStep(idx) {
+  if (idx === tlCurrent) return;
+  tlCurrent = idx;
+  const d = tlSteps[idx];
+
+  // Progress bars
+  tlSteps.forEach((_, i) => {
+    document.getElementById('prog-' + i).style.width = (i <= idx ? '100%' : '0%');
+  });
+
+  // Number buttons
+  document.querySelectorAll('.tl-num-btn').forEach((btn, i) => {
+    const isActive = i === idx;
+    btn.classList.toggle('tl-num-active', isActive);
+    btn.style.color = isActive ? tlSteps[i].color : '#b0b0b0';
+    btn.style.background = isActive ? tlSteps[i].badgeBg : 'rgba(0,0,0,0.04)';
+  });
+
+  // Cards glow
+  document.querySelectorAll('.tl-card').forEach((card, i) => {
+    card.classList.toggle('tl-active', i === idx);
+  });
+
+  // Icon animate
+  const iconEl = document.getElementById('tl-icon');
+  iconEl.classList.remove('tl-icon-pop');
+  void iconEl.offsetWidth;
+  iconEl.textContent = d.icon;
+  iconEl.classList.add('tl-icon-pop');
+
+  // Icon bg
+  document.getElementById('tl-icon-bg').style.background = d.iconBg;
+
+  // Ring color
+  document.getElementById('tl-ring').style.color = d.color;
+
+  // Badge
+  const badge = document.getElementById('tl-badge');
+  badge.textContent = d.badge;
+  badge.style.color = d.color;
+  badge.style.background = d.badgeBg;
+
+  // Title + desc fade
+  ['tl-title','tl-desc'].forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.remove('tl-text-in');
+    void el.offsetWidth;
+    el.classList.add('tl-text-in');
+  });
+  document.getElementById('tl-title').textContent = d.title;
+  document.getElementById('tl-desc').textContent  = d.desc;
+
+  // Stat animate
+  const statEl = document.getElementById('tl-stat');
+  statEl.classList.remove('tl-stat-in');
+  void statEl.offsetWidth;
+  statEl.classList.add('tl-stat-in');
+  statEl.style.background  = d.bgColor;
+  statEl.style.borderColor = d.borderColor;
+  document.getElementById('tl-stat-num').style.color   = d.color;
+  document.getElementById('tl-stat-num').textContent   = d.statNum;
+  document.getElementById('tl-stat-label').textContent = d.statLabel;
+
+  // Blobs
+  document.getElementById('tl-blob').style.background  = d.blobColor;
+  document.getElementById('tl-blob2').style.background = d.blobColor;
+
+  // Particles
+  document.querySelectorAll('.tl-particle').forEach(p => {
+    p.style.background = d.particleColor;
+  });
+
+  // Border glow
+  document.getElementById('tl-border-glow').style.background =
+    `conic-gradient(from 0deg, ${d.color}, ${d.color}88, ${d.color}22, ${d.color})`;
+
+  // Outer glow
+  document.getElementById('tl-visual-wrap').style.boxShadow =
+    `0 0 40px ${d.glowColor}, 0 0 80px ${d.glowColor.replace('0.25','0.08')}`;
+}
+</script>
 
     <!-- ══════════════════════════════════════
      SOLUTION
@@ -2408,154 +2570,156 @@
     <!-- ══════════════════════════════════════
      MYTHS vs FACTS
      ══════════════════════════════════════ -->
-    <section
-      id="myths"
-      class="relative z-10 py-28"
-      style="background: var(--bg)"
-    >
-      <div class="max-w-5xl mx-auto px-6">
-        <div class="text-center mb-12 sr">
-          <div
-            class="badge mb-5"
-            style="
-              background: var(--emerald-dim);
-              border-color: rgba(5, 150, 105, 0.2);
-              color: var(--emerald);
-            "
-          >
-            Fakta Ilmiah
-          </div>
-          <h2 class="section-title text-3xl md:text-4xl mb-4">
-            Desalinasi:
-            <span style="color: var(--emerald)">Mitos vs Fakta</span>
-          </h2>
-          <p class="sub-headline max-w-md mx-auto text-sm">
-            Meluruskan kesalahpahaman tentang desalinasi berdasarkan teknologi
-            dan penelitian modern.
-          </p>
-        </div>
-        <div class="space-y-4 sr">
-          <div class="myth-wrap">
-            <div class="grid md:grid-cols-2">
-              <div class="md:border-r border-gray-100">
-                <div
-                  class="myth-h"
-                  style="background: rgba(229, 57, 53, 0.06); color: #c62828"
-                >
-                  ✕ Mitos
-                </div>
-                <div class="myth-b">
-                  <p class="font-bold mb-1" style="color: var(--ink)">
-                    "Desalinasi merusak ekosistem laut."
-                  </p>
-                </div>
-              </div>
-              <div>
-                <div
-                  class="myth-h"
-                  style="background: rgba(5, 150, 105, 0.07); color: #065f46"
-                >
-                  ✓ Fakta
-                </div>
-                <div class="myth-b">
-                  <p class="font-bold mb-1" style="color: var(--ink)">
-                    Brine adalah sumber daya, bukan limbah.
-                  </p>
-                  <p
-                    class="text-sm leading-relaxed"
-                    style="color: var(--muted)"
-                  >
-                    Sisa air garam pekat dapat dialirkan ke kolam evaporasi
-                    untuk menghasilkan garam industri seperti NaCl dan MgCl₂,
-                    mengurangi limbah dan dampak terhadap lingkungan laut.
-                  </p>
-                </div>
-              </div>
+<section
+  id="myths"
+  class="relative z-10 py-28"
+  style="background: var(--bg)"
+>
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-12 sr">
+      <div
+        class="badge mb-5"
+        style="
+          background: var(--emerald-dim);
+          border-color: rgba(5, 150, 105, 0.2);
+          color: var(--emerald);
+        "
+      >
+        Fakta Ilmiah
+      </div>
+      <h2 class="section-title text-3xl md:text-4xl mb-4">
+        Desalinasi:
+        <span style="color: var(--emerald)">Mitos vs Fakta</span>
+      </h2>
+      <p class="sub-headline max-w-md mx-auto text-sm">
+        Klik untuk melihat fakta sebenarnya dari teknologi desalinasi.
+      </p>
+    </div>
+
+    <div class="space-y-4 sr">
+
+      <!-- Item 1 -->
+      <div class="myth-accordion rounded-xl overflow-hidden border border-red-200 bg-white transition-all duration-300">
+        <button
+          class="w-full flex items-center justify-between gap-3 px-6 py-5 bg-red-50 hover:bg-red-100 transition-colors duration-200 cursor-pointer"
+          onclick="toggleMyth(this)"
+          aria-expanded="false"
+        >
+          <span class="flex items-center gap-3">
+            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-100 text-red-700 text-xs font-bold flex-shrink-0">✕</span>
+            <span class="font-semibold text-sm text-red-800 text-left">Mitos: Desalinasi merusak ekosistem laut dengan limbah garam.</span>
+          </span>
+          <span class="myth-chevron flex-shrink-0 text-red-600 transition-transform duration-300">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </span>
+        </button>
+        <div class="myth-panel max-h-0 overflow-hidden transition-all duration-400">
+          <div class="px-6 py-5 border-t border-emerald-100 bg-emerald-50">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold flex-shrink-0">✓</span>
+              <span class="font-bold text-sm" style="color: #065f46">Fakta: Brine adalah sumber daya, bukan limbah.</span>
             </div>
-          </div>
-          <div class="myth-wrap">
-            <div class="grid md:grid-cols-2">
-              <div class="md:border-r border-gray-100">
-                <div
-                  class="myth-h"
-                  style="background: rgba(229, 57, 53, 0.06); color: #c62828"
-                >
-                  ✕ Mitos
-                </div>
-                <div class="myth-b">
-                  <p class="font-bold mb-1" style="color: var(--ink)">
-                    "Desalinasi boros energi."
-                  </p>
-                </div>
-              </div>
-              <div>
-                <div
-                  class="myth-h"
-                  style="background: rgba(5, 150, 105, 0.07); color: #065f46"
-                >
-                  ✓ Fakta
-                </div>
-                <div class="myth-b">
-                  <p class="font-bold mb-1" style="color: var(--ink)">
-                    Teknologi modern jauh lebih efisien energi.
-                  </p>
-                  <p
-                    class="text-sm leading-relaxed"
-                    style="color: var(--muted)"
-                  >
-                    Reverse Osmosis modern hanya membutuhkan sekitar 3–4 kWh per
-                    meter kubik air dan dapat dikombinasikan dengan energi
-                    terbarukan untuk menekan biaya dan emisi karbon.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="myth-wrap">
-            <div class="grid md:grid-cols-2">
-              <div class="md:border-r border-gray-100">
-                <div
-                  class="myth-h"
-                  style="background: rgba(229, 57, 53, 0.06); color: #c62828"
-                >
-                  ✕ Mitos
-                </div>
-                <div class="myth-b">
-                  <p class="font-bold mb-1" style="color: var(--ink)">
-                    "Menghentikan penggunaan air tanah tidak akan menghentikan
-                    penurunan tanah."
-                  </p>
-                </div>
-              </div>
-              <div>
-                <div
-                  class="myth-h"
-                  style="background: rgba(5, 150, 105, 0.07); color: #065f46"
-                >
-                  ✓ Fakta
-                </div>
-                <div class="myth-b">
-                  <p class="font-bold mb-1" style="color: var(--ink)">
-                    Pengurangan ekstraksi dapat memperlambat penurunan tanah.
-                  </p>
-                  <p
-                    class="text-sm leading-relaxed"
-                    style="color: var(--muted)"
-                  >
-                    Dengan mengurangi pengambilan air tanah dan beralih ke
-                    sumber alternatif seperti desalinasi, laju penurunan tanah
-                    dapat diperlambat secara signifikan.
-                  </p>
-                </div>
-              </div>
-            </div>
+            <p class="text-sm leading-relaxed pl-8" style="color: var(--muted)">
+              Sisa air garam pekat dapat dialirkan ke kolam evaporasi untuk menghasilkan garam industri seperti NaCl dan MgCl₂, mengurangi limbah dan dampak terhadap lingkungan laut.
+            </p>
           </div>
         </div>
       </div>
-    </section>
 
-    <div class="section-divider z-10 relative"></div>
+      <!-- Item 2 -->
+      <div class="myth-accordion rounded-xl overflow-hidden border border-red-200 bg-white transition-all duration-300">
+        <button
+          class="w-full flex items-center justify-between gap-3 px-6 py-5 bg-red-50 hover:bg-red-100 transition-colors duration-200 cursor-pointer"
+          onclick="toggleMyth(this)"
+          aria-expanded="false"
+        >
+          <span class="flex items-center gap-3">
+            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-100 text-red-700 text-xs font-bold flex-shrink-0">✕</span>
+            <span class="font-semibold text-sm text-red-800 text-left">Mitos: Operasionalnya terlalu boros energi dan merusak iklim.</span>
+          </span>
+          <span class="myth-chevron flex-shrink-0 text-red-600 transition-transform duration-300">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </span>
+        </button>
+        <div class="myth-panel max-h-0 overflow-hidden transition-all duration-400">
+          <div class="px-6 py-5 border-t border-emerald-100 bg-emerald-50">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold flex-shrink-0">✓</span>
+              <span class="font-bold text-sm" style="color: #065f46">Fakta: Teknologi modern jauh lebih efisien energi.</span>
+            </div>
+            <p class="text-sm leading-relaxed pl-8" style="color: var(--muted)">
+              Reverse Osmosis modern hanya membutuhkan sekitar 3–4 kWh per meter kubik air dan dapat dikombinasikan dengan energi terbarukan untuk menekan biaya dan emisi karbon.
+            </p>
+          </div>
+        </div>
+      </div>
 
+      <!-- Item 3 -->
+      <div class="myth-accordion rounded-xl overflow-hidden border border-red-200 bg-white transition-all duration-300">
+        <button
+          class="w-full flex items-center justify-between gap-3 px-6 py-5 bg-red-50 hover:bg-red-100 transition-colors duration-200 cursor-pointer"
+          onclick="toggleMyth(this)"
+          aria-expanded="false"
+        >
+          <span class="flex items-center gap-3">
+            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-100 text-red-700 text-xs font-bold flex-shrink-0">✕</span>
+            <span class="font-semibold text-sm text-red-800 text-left">Mitos: Stop sedot air tanah tidak akan menyembuhkan Jakarta.</span>
+          </span>
+          <span class="myth-chevron flex-shrink-0 text-red-600 transition-transform duration-300">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </span>
+        </button>
+        <div class="myth-panel max-h-0 overflow-hidden transition-all duration-400">
+          <div class="px-6 py-5 border-t border-emerald-100 bg-emerald-50">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold flex-shrink-0">✓</span>
+              <span class="font-bold text-sm" style="color: #065f46">Fakta: Pengurangan ekstraksi dapat memperlambat penurunan tanah.</span>
+            </div>
+            <p class="text-sm leading-relaxed pl-8" style="color: var(--muted)">
+              Dengan mengurangi pengambilan air tanah dan beralih ke sumber alternatif seperti desalinasi, laju penurunan tanah dapat diperlambat secara signifikan.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider z-10 relative"></div>
+
+<script>
+function toggleMyth(btn) {
+  const item = btn.closest('.myth-accordion');
+  const panel = item.querySelector('.myth-panel');
+  const chevron = btn.querySelector('.myth-chevron');
+  const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+  // Close all
+  document.querySelectorAll('.myth-accordion').forEach(el => {
+    el.querySelector('.myth-panel').style.maxHeight = '0px';
+    el.querySelector('button').setAttribute('aria-expanded', 'false');
+    el.querySelector('.myth-chevron').style.transform = 'rotate(0deg)';
+    el.classList.remove('border-emerald-300');
+    el.classList.add('border-red-200');
+  });
+
+  // Open clicked if it wasn't already open
+  if (!isOpen) {
+    panel.style.maxHeight = panel.scrollHeight + 'px';
+    btn.setAttribute('aria-expanded', 'true');
+    chevron.style.transform = 'rotate(180deg)';
+    item.classList.remove('border-red-200');
+    item.classList.add('border-emerald-300');
+  }
+}
+</script>
     <!-- ══════════════════════════════════════
      CONTACT
      ══════════════════════════════════════ -->
