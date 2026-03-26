@@ -15,6 +15,9 @@
 * **Leaflet.js**: Untuk pemetaan geografis interaktif.
 * **Tailwind CSS**: Untuk utilitas layouting.
 
+## 🌍 Tujuan Project
+* Meningkatkan kesadaran masyarakat tentang bahaya eksploitasi air tanah serta memperkenalkan solusi berkelanjutan melalui desalinasi.
+
 ## 👨‍💻 Kontribusi
 Proyek ini dikembangkan oleh Tim yukk-ahkk untuk kompetisi SOFTCOMPT 2026 
 
