@@ -488,9 +488,53 @@ const UIView = {
   },
 
   /* ── Contact form ── */
+  /* ── Contact form ── */
   initContactForm() {
-    const btn = document.querySelector("[data-contact-send]");
-    if (btn) btn.addEventListener("click", () => this.sendMessage());
+    const form = document.getElementById("contact-form");
+    const okMsg = document.getElementById("sent-ok");
+    const btn = form ? form.querySelector('button[type="submit"]') : null;
+
+    if (!form) return;
+
+    form.addEventListener("submit", async (e) => {
+      // 1. Cegah perilaku default browser (reload/pindah halaman)
+      e.preventDefault();
+
+      // 2. Ubah state tombol agar pengguna tahu proses sedang berjalan
+      const originalText = btn.innerText;
+      btn.innerText = "Mengirim...";
+      btn.disabled = true;
+
+      try {
+        // 3. Kirim data ke Formspree (atau endpoint PHP buatanmu) via AJAX
+        const response = await fetch(form.action, {
+          method: form.method,
+          body: new FormData(form),
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          // 4. Jika sukses, tampilkan pesan dan reset form
+          okMsg.classList.remove("hidden");
+          form.reset();
+        } else {
+          alert("Gagal mengirim pesan. Silakan coba lagi.");
+        }
+      } catch (error) {
+        alert("Terjadi kesalahan jaringan.");
+      } finally {
+        // 5. Kembalikan state tombol
+        btn.innerText = originalText;
+        btn.disabled = false;
+
+        // Sembunyikan pesan sukses setelah 5 detik
+        setTimeout(() => {
+          okMsg.classList.add("hidden");
+        }, 5000);
+      }
+    });
   },
 
   sendMessage() {
@@ -1092,3 +1136,182 @@ document.addEventListener("DOMContentLoaded", () => {
   CalculatorController.init();
   MapController.init();
 });
+
+
+function toggleMyth(btn) {
+  const item = btn.closest(".myth-accordion");
+  const panel = item.querySelector(".myth-panel");
+  const chevron = btn.querySelector(".myth-chevron");
+  const isOpen = btn.getAttribute("aria-expanded") === "true";
+
+  // Close all
+  document.querySelectorAll(".myth-accordion").forEach((el) => {
+    el.querySelector(".myth-panel").style.maxHeight = "0px";
+    el.querySelector("button").setAttribute("aria-expanded", "false");
+    el.querySelector(".myth-chevron").style.transform = "rotate(0deg)";
+    el.classList.remove("border-emerald-300");
+    el.classList.add("border-red-200");
+  });
+
+  // Open clicked if it wasn't already open
+  if (!isOpen) {
+    panel.style.maxHeight = panel.scrollHeight + "px";
+    btn.setAttribute("aria-expanded", "true");
+    chevron.style.transform = "rotate(180deg)";
+    item.classList.remove("border-red-200");
+    item.classList.add("border-emerald-300");
+  }
+}
+
+const tlSteps = [
+  {
+    icon: "🚰",
+    badge: "Step 1 · 1970s → Sekarang",
+    title: "Ekstraksi Air Tanah",
+    desc: "Ketergantungan awal pada sumur bor oleh jutaan rumah tangga dan industri.",
+    statNum: "65%",
+    statLabel: "rumah tangga pakai sumur bor",
+    color: "#e53935",
+    bgColor: "rgba(229,57,53,0.07)",
+    borderColor: "rgba(229,57,53,0.15)",
+    blobColor: "#e53935",
+    glowColor: "rgba(229,57,53,0.25)",
+    badgeBg: "rgba(229,57,53,0.1)",
+    iconBg: "rgba(229,57,53,0.12)",
+    particleColor: "#e53935",
+  },
+  {
+    icon: "📉",
+    badge: "Step 2 · Dampak Langsung",
+    title: "Kompaksi Akuifer",
+    desc: "Lapisan tanah Jakarta hancur permanen karena air yang menopangnya terus disedot.",
+    statNum: "3,9cm",
+    statLabel: "penurunan tanah sepanjang 2023",
+    color: "#f59e0b",
+    bgColor: "rgba(245,158,11,0.07)",
+    borderColor: "rgba(245,158,11,0.18)",
+    blobColor: "#f59e0b",
+    glowColor: "rgba(245,158,11,0.25)",
+    badgeBg: "rgba(245,158,11,0.1)",
+    iconBg: "rgba(245,158,11,0.12)",
+    particleColor: "#f59e0b",
+  },
+  {
+    icon: "🚨",
+    badge: "Step 3 · Rekor Dunia",
+    title: "Laju Subsiden Tercepat",
+    desc: "Jakarta resmi menjadi megapolitan dengan laju tenggelam tercepat di dunia.",
+    statNum: "−5,76cm",
+    statLabel: "ambles per tahun · #1 global",
+    color: "#fb923c",
+    bgColor: "rgba(251,146,60,0.07)",
+    borderColor: "rgba(251,146,60,0.18)",
+    blobColor: "#fb923c",
+    glowColor: "rgba(251,146,60,0.25)",
+    badgeBg: "rgba(251,146,60,0.1)",
+    iconBg: "rgba(251,146,60,0.12)",
+    particleColor: "#fb923c",
+  },
+  {
+    icon: "🌊",
+    badge: "Step 4 · Proyeksi 2050",
+    title: "Bencana Banjir Rob",
+    desc: "Sebagian besar Jakarta Utara diproyeksikan terendam permanen tanpa intervensi.",
+    statNum: "2050",
+    statLabel: "tahun bencana permanen Jakarta Utara",
+    color: "#0ea5e9",
+    bgColor: "rgba(14,165,233,0.07)",
+    borderColor: "rgba(14,165,233,0.18)",
+    blobColor: "#0ea5e9",
+    glowColor: "rgba(14,165,233,0.25)",
+    badgeBg: "rgba(14,165,233,0.1)",
+    iconBg: "rgba(14,165,233,0.12)",
+    particleColor: "#0ea5e9",
+  },
+];
+
+let tlCurrent = 0;
+
+function selectStep(idx) {
+  if (idx === tlCurrent) return;
+  tlCurrent = idx;
+  const d = tlSteps[idx];
+
+  // Progress bars
+  tlSteps.forEach((_, i) => {
+    document.getElementById("prog-" + i).style.width =
+      i <= idx ? "100%" : "0%";
+  });
+
+  // Number buttons
+  document.querySelectorAll(".tl-num-btn").forEach((btn, i) => {
+    const isActive = i === idx;
+    btn.classList.toggle("tl-num-active", isActive);
+    btn.style.color = isActive ? tlSteps[i].color : "#b0b0b0";
+    btn.style.background = isActive
+      ? tlSteps[i].badgeBg
+      : "rgba(0,0,0,0.04)";
+  });
+
+  // Cards glow
+  document.querySelectorAll(".tl-card").forEach((card, i) => {
+    card.classList.toggle("tl-active", i === idx);
+  });
+
+  // Icon animate
+  const iconEl = document.getElementById("tl-icon");
+  iconEl.classList.remove("tl-icon-pop");
+  void iconEl.offsetWidth;
+  iconEl.textContent = d.icon;
+  iconEl.classList.add("tl-icon-pop");
+
+  // Icon bg
+  document.getElementById("tl-icon-bg").style.background = d.iconBg;
+
+  // Ring color
+  document.getElementById("tl-ring").style.color = d.color;
+
+  // Badge
+  const badge = document.getElementById("tl-badge");
+  badge.textContent = d.badge;
+  badge.style.color = d.color;
+  badge.style.background = d.badgeBg;
+
+  // Title + desc fade
+  ["tl-title", "tl-desc"].forEach((id) => {
+    const el = document.getElementById(id);
+    el.classList.remove("tl-text-in");
+    void el.offsetWidth;
+    el.classList.add("tl-text-in");
+  });
+  document.getElementById("tl-title").textContent = d.title;
+  document.getElementById("tl-desc").textContent = d.desc;
+
+  // Stat animate
+  const statEl = document.getElementById("tl-stat");
+  statEl.classList.remove("tl-stat-in");
+  void statEl.offsetWidth;
+  statEl.classList.add("tl-stat-in");
+  statEl.style.background = d.bgColor;
+  statEl.style.borderColor = d.borderColor;
+  document.getElementById("tl-stat-num").style.color = d.color;
+  document.getElementById("tl-stat-num").textContent = d.statNum;
+  document.getElementById("tl-stat-label").textContent = d.statLabel;
+
+  // Blobs
+  document.getElementById("tl-blob").style.background = d.blobColor;
+  document.getElementById("tl-blob2").style.background = d.blobColor;
+
+  // Particles
+  document.querySelectorAll(".tl-particle").forEach((p) => {
+    p.style.background = d.particleColor;
+  });
+
+  // Border glow
+  document.getElementById("tl-border-glow").style.background =
+    `conic-gradient(from 0deg, ${d.color}, ${d.color}88, ${d.color}22, ${d.color})`;
+
+  // Outer glow
+  document.getElementById("tl-visual-wrap").style.boxShadow =
+    `0 0 40px ${d.glowColor}, 0 0 80px ${d.glowColor.replace("0.25", "0.08")}`;
+}
