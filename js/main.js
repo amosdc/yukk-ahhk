@@ -714,30 +714,33 @@ const UIView = {
     const magneticButtons = document.querySelectorAll(
       ".btn-primary, .btn-secondary",
     );
+    const isTouchDevice = window.matchMedia("(hover: none)").matches;
 
-    magneticButtons.forEach((btn) => {
-      btn.addEventListener("mousemove", (e) => {
-        const rect = btn.getBoundingClientRect();
-        const x = (e.clientX - rect.left - rect.width / 2) * 0.3;
-        const y = (e.clientY - rect.top - rect.height / 2) * 0.3;
+    if (!isTouchDevice) {
+      magneticButtons.forEach((btn) => {
+        btn.addEventListener("mousemove", (e) => {
+          const rect = btn.getBoundingClientRect();
+          const x = (e.clientX - rect.left - rect.width / 2) * 0.3;
+          const y = (e.clientY - rect.top - rect.height / 2) * 0.3;
 
-        gsap.to(btn, {
-          x: x,
-          y: y,
-          duration: 0.4,
-          ease: "power2.out",
+          gsap.to(btn, {
+            x: x,
+            y: y,
+            duration: 0.4,
+            ease: "power2.out",
+          });
+        });
+
+        btn.addEventListener("mouseleave", () => {
+          gsap.to(btn, {
+            x: 0,
+            y: 0,
+            duration: 0.7,
+            ease: "elastic.out(1, 0.3)",
+          });
         });
       });
-
-      btn.addEventListener("mouseleave", () => {
-        gsap.to(btn, {
-          x: 0,
-          y: 0,
-          duration: 0.7,
-          ease: "elastic.out(1, 0.3)",
-        });
-      });
-    });
+    }
   },
 };
 
@@ -944,7 +947,15 @@ const MapView = {
     el.ttAction().textContent = data.action;
 
     const tt = el.tooltip();
-    tt.style.left = e.containerPoint.x + 15 + "px";
+    const mapContainer = document.getElementById("jakarta-map");
+    const containerWidth = mapContainer ? mapContainer.offsetWidth : 600;
+    const tooltipWidth = 210; // approximate max rendered width
+    const rawLeft = e.containerPoint.x + 15;
+    // Flip to left of cursor if it would overflow the right edge
+    const clampedLeft = rawLeft + tooltipWidth > containerWidth
+      ? e.containerPoint.x - tooltipWidth - 5
+      : rawLeft;
+    tt.style.left = Math.max(0, clampedLeft) + "px";
     tt.style.top = e.containerPoint.y + 15 + "px";
     tt.classList.add("show");
   },
